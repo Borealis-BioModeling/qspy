@@ -14,23 +14,29 @@ class ComponentContext(ABC):
         self._manual_adds = []
         self._frame = None
         self._locals_before = None
-        #self.components = ComponentSet()
+        # self.components = ComponentSet()
+        self.model = SelfExporter.default_model
+        self._override = False
 
     def __enter__(self):
-        self.model = SelfExporter.default_model
+        
         if self.model is None:
             raise RuntimeError("No active model found. Did you instantiate a Model()?")
-
-        self._frame = inspect.currentframe().f_back
+        if self._override:
+            self._frame = inspect.currentframe().f_back.f_back
+        else:
+            self._frame = inspect.currentframe().f_back
 
         # Require module-level use for introspection mode
-        if not self.manual and (self._frame.f_globals is not self._frame.f_locals):
+        if ((not self.manual) and (self._frame.f_globals is not self._frame.f_locals)) and (not self._override):
             raise RuntimeError(
                 f"{self.__class__.__name__} must be used at module scope. "
                 f"Wrap model components in a module-level script."
             )
 
         if not self.manual:
+            for key in self._frame.f_locals:
+                print(key)
             self._locals_before = copy.deepcopy(self._frame.f_locals)
 
         return self if self.manual else None
@@ -88,5 +94,5 @@ class ComponentContext(ABC):
         raise NotImplementedError
 
     def add_component(self, component):
-        #self.components.add(component)
+        # self.components.add(component)
         self.model.add_component(component)
