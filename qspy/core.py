@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import datetime
 import os
+import re
 from enum import Enum
 from pysb.export import export as pysb_export
 
@@ -12,7 +13,7 @@ except ImportError:
     HAS_SBMLDIAGRAMS = False
 import pysb.units
 from pysb.units.core import *
-from pysb.core import SelfExporter
+from pysb.core import SelfExporter, MonomerPattern, ComplexPattern
 import pysb.core
 from metadata import METADATA_DIR
 from utils.logging import ensure_qspy_logging
@@ -123,7 +124,113 @@ def mp_lshift(self, value):
 
 
 pysb.core.MonomerPattern.__lshift__ = mp_lshift
+pysb.core.ComplexPattern.__lshift__ = mp_lshift
 
+
+translation = str.maketrans(
+    {" ": "", "=": "", "(": "_", ")": "", "*": "", ",": "_", "'": ""}
+)
+
+
+def _make_mono_string(monopattern):
+    if isinstance(monopattern, MonomerPattern):
+        string_repr = repr(monopattern)
+    elif isinstance(monopattern, str):
+        string_repr = monopattern
+    else:
+        raise ValueError('Input pattern must a MonomerPattern or string representation of one')
+    #name = "place_holder"
+    # Get the text (if any) inside the parenthesis [e.g., molecule(b=None)]
+    parenthetical = re.search("\((.*)\)", string_repr).group(0).strip("(").strip(")")
+    mono = string_repr.split("(")[0]
+    comp = ""
+    # Get the compartment string if included in the pattern
+    if "**" in string_repr:
+        comp = string_repr.split("**")[1].replace(" ", "")
+    if parenthetical:
+        # Check for bond and state info [(b=None, state='p')]
+        # NOTE - does not account for multiple bonding sites
+        if "," in parenthetical:
+            bond, state = parenthetical.split(",")
+            bond = bond.split("=")[1]
+            state = state.split("'")[1]
+            print(bond, state)
+            if bond == "None":
+                if comp:
+                    # None bond w/ state and compartment
+                    name = f"{mono}_{state}_{comp}"
+
+                else:
+                    # None bond with state - no compartment
+                    name = f"{mono}_{state}"
+            else:
+                # Include bond, state, and compartment
+                name = f"{mono}_{bond}_{state}_{comp}"
+
+        else:
+            # Get bond or state info when only one is present (not both) [e.g., (b=None) or (state='u')]
+            bond_or_state = parenthetical.split("=")[1].replace("'", "")
+            print(bond_or_state)
+            if comp:
+                # Bond/state and compartment
+                name = f"{mono}_{bond_or_state}_{comp}"
+            else:
+                # Bond/state - no compartment
+                name = f"{mono}_{bond_or_state}"
+    else:
+        # No bond or state info [e.g., empty parenthesis ()]
+        if comp:
+            # With compartment
+            name = f"{mono}_{comp}"
+        else:
+            # No compartment
+            name = f"{mono}"
+    return name
+
+def _make_complex_string(complexpattern):
+    string_repr = repr(complexpattern)
+    # Split at the bond operator '%' to 
+    # get the left and right-hand monomer patterns.
+    mono_left, mono_right = string_repr.split('%')
+    # Process each monomer pattern:
+    name_left = _make_mono_string(mono_left)
+    name_right = _make_mono_string(mono_right)
+    name = f"{name_left}_{name_right}"
+    return name
+
+# Make observable definition availabe with 
+# the iversion '~' prefix operator and an 
+# auto generated name based on the monomer or complex
+# pattern string:
+#    ~pattern , e.g.:
+#    ~molecA() # name='molecA'
+def mp_invert(self):
+
+    if isinstance(self, MonomerPattern):
+        name = _make_mono_string(self)
+
+    elif isinstance(self, ComplexPattern):
+        name = _make_complex_string(self)
+
+    # name = 'gooo'
+    return Observable(name, self)
+
+
+pysb.core.MonomerPattern.__invert__ = mp_invert
+pysb.core.ComplexPattern.__invert__ = mp_invert
+
+# Make observable definition availabe with 
+# the greater than sign '>' operator:
+#    pattern > "observable_name", e.g.:
+#    molecA() > "A"
+def mp_gt(self, other):
+    if not isinstance(other, str):
+        raise ValueError("Observable name should be a string")
+    else:
+        return Observable(other, self)
+
+pysb.core.MonomerPattern.__gt__ = mp_gt
+pysb.core.ComplexPattern.__gt__ = mp_gt
 
 class Monomer(Monomer):
 

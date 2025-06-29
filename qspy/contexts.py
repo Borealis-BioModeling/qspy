@@ -23,6 +23,7 @@ __all__ = [
     "expressions",
     "rules",
     "initials",
+    "observables",
     # "pk_macros",
     # "units",
 ]
@@ -189,6 +190,12 @@ def initials():
     finally:
         pass
 
+@contextmanager
+def observables():
+    try:
+        yield
+    finally:
+        pass
 
 # @contextmanager
 # def pk():

@@ -44,6 +44,7 @@ class PROTEIN(Enum):
     TRANSCRIPTION_FACTOR = prefixer("transcription_factor", PROTEIN_PREFIX)
     ENZYME = prefixer("enzyme", PROTEIN_PREFIX)
     ANTIBODY = prefixer("antibody", PROTEIN_PREFIX)
+    RECEPTOR_DECOY = prefixer("receptor_decoy", PROTEIN_PREFIX)
 
 
 # === Drug roles ===
@@ -52,6 +53,7 @@ DRUG_PREFIX = "drug"
 
 class DRUG(Enum):
     SMALL_MOLECULE = prefixer("small_molecule", DRUG_PREFIX)
+    BIOLOGIC = prefixer("biologic", DRUG_PREFIX)
     ANTIBODY = prefixer("antibody", DRUG_PREFIX)
     MAB = prefixer("monoclonal_antibody", DRUG_PREFIX)
     INHIBITOR = prefixer("inhibitor", DRUG_PREFIX)
@@ -71,10 +73,10 @@ RNA_PREFIX = "rna"
 
 
 class RNA(Enum):
-    MRNA = prefixer("mrna", RNA_PREFIX)
-    miRNA = prefixer("mirna", RNA_PREFIX)
-    siRNA = prefixer("sirna", RNA_PREFIX)
-    lncRNA = prefixer("lncrna", RNA_PREFIX)
+    MESSENGER = prefixer("messenger", RNA_PREFIX)
+    MICRO = prefixer("micro", RNA_PREFIX)
+    SMALL_INTERFERING = prefixer("small_interfering", RNA_PREFIX)
+    LONG_NONCODING = prefixer("long_noncoding", RNA_PREFIX)
 
 
 # === DNA roles ===
@@ -105,6 +107,7 @@ class LIPID(Enum):
     PHOSPHOLIPID = prefixer("phospholipid", LIPID_PREFIX)
     GLYCOLIPID = prefixer("glycolipid", LIPID_PREFIX)
     STEROL = prefixer("sterol", LIPID_PREFIX)
+    EICOSANOID = prefixer("eicosanoid", LIPID_PREFIX)
 
 
 # === Ion types ===
@@ -116,6 +119,7 @@ class ION(Enum):
     POTASSIUM = prefixer("k+", ION_PREFIX)
     SODIUM = prefixer("na+", ION_PREFIX)
     CHLORIDE = prefixer("cl-", ION_PREFIX)
+    MAGNESIUM = prefixer("mg2+", ION_PREFIX)
 
 
 # === Nanoparticle roles ===
@@ -127,3 +131,4 @@ class NANOPARTICLE(Enum):
     THERMAL = prefixer("photothermal", NANOPARTICLE_PREFIX)
     IMAGING = prefixer("imaging", NANOPARTICLE_PREFIX)
     SENSING = prefixer("sensing", NANOPARTICLE_PREFIX)
+    THERANOSTIC = prefixer("theranostic", NANOPARTICLE_PREFIX)
