@@ -28,6 +28,7 @@ import inspect
 import logging
 import weakref
 from abc import ABC, abstractmethod
+from types import ModuleType
 
 from pysb.core import SelfExporter, ComponentSet
 
@@ -66,8 +67,29 @@ SKIP_TYPES = (
     "__builtins__",
     "__version__",
     "__author__",
+    "pytest",
+    "pysb",
+    "pysb.core",
+    "pysb.macros",
+    "pysb.pkpd.macros",
+    "pysb.pkpd",
 )
 
+def is_module(obj):
+    """
+    Check if the object is a module.
+
+    Parameters
+    ----------
+    obj : object
+        The object to check.
+
+    Returns
+    -------
+    bool
+        True if the object is a module, False otherwise.
+    """
+    return isinstance(obj, ModuleType)
 
 class ComponentContext(ABC):
     """
@@ -190,7 +212,7 @@ class ComponentContext(ABC):
                 filtered_locals = {
                     k: v
                     for k, v in self._frame.f_locals.items()
-                    if not (hasattr(v, "__class__") and k in SKIP_TYPES)
+                    if not ((hasattr(v, "__class__") and k in SKIP_TYPES) or is_module(v))
                 }
                 # print(filtered_locals)
                 for key in filtered_locals:
@@ -235,7 +257,7 @@ class ComponentContext(ABC):
                 filtered_locals = {
                     k: v
                     for k, v in self._frame.f_locals.items()
-                    if not (hasattr(v, "__class__") and k in SKIP_TYPES)
+                    if not ((hasattr(v, "__class__") and k in SKIP_TYPES) or is_module(v))
                 }
                 new_vars = set(filtered_locals.keys()) - set(self._locals_before.keys())
 
