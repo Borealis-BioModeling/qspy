@@ -22,7 +22,7 @@ with parameters():
     drug_dose = (100.0, "mg")
     # Compartment volumes
     V_CENTRAL = (10.0, "L")
-    V_PERIPHERAL = (1.0, "L") 
+    V_PERIPHERAL = (1.0, "L")
     # drug distribution rate constants
     k_CP = (1e-1, "1/s")
     k_PC = (1e-3, "1/s")
@@ -43,7 +43,7 @@ with expressions():
 
 ## 5) Specify the model compartments
 
-```python 
+```python
 with compartments():
     CENTRAL = V_CENTRAL
     PERIPHERAL = V_PERIPHERAL
@@ -106,7 +106,7 @@ with parameters():
     drug_dose = (100.0, "mg")
     # Compartment volumes
     V_CENTRAL = (10.0, "L")
-    V_PERIPHERAL = (1.0, "L") 
+    V_PERIPHERAL = (1.0, "L")
     # drug distribution rate constants
     k_CP = (1e-1, "1/s")
     k_PC = (1e-3, "1/s")
@@ -147,4 +147,3 @@ ModelMetadataTracker(__version__, author=__author__)
 
 ModelChecker()
 ```
-

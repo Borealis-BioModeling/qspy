@@ -10,7 +10,7 @@ plugins:
           python:
               options:
                   docstring_style: numpy
-              paths: [qspy]  # search packages in the src folder
+              paths: [.]  # search packages in the src folder
 
 markdown_extensions:
   - attr_list

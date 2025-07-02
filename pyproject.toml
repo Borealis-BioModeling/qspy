@@ -71,10 +71,8 @@ Repository = "https://github.com/Borealis-BioModeling/qspy"
 Issues = "https://github.com/Borealis-BioModeling/qspy/issues"
 #Changelog = ""
 
-# Find namespace package
-[tool.setuptools.packages.find]
-where = ["qspy"]
-namespaces = false
+[tool.setuptools.packages]
+find = {}  # Scan the project directory with the default parameters
 
 # Set the dynamic version
 [tool.setuptools.dynamic]

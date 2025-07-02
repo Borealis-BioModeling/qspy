@@ -1,1 +1,4 @@
-__version__ = '0.1.0'
+from qspy.config import QSPY_VERSION
+from pysb.pkpd import simulate
+
+__version__ = QSPY_VERSION

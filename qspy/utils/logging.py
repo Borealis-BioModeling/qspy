@@ -1,17 +1,59 @@
+"""
+QSPy Logging Utilities
+======================
+
+This module provides logging utilities for QSPy, including logger setup, event
+decorators, metadata redaction, and context entry/exit logging. It ensures
+consistent, structured, and optionally redacted logging for QSPy workflows.
+
+Functions
+---------
+setup_qspy_logger : Set up the QSPy logger with rotating file handler.
+ensure_qspy_logging : Ensure the QSPy logger is initialized.
+log_event : Decorator for logging function entry, exit, arguments, and results.
+redact_sensitive : Recursively redact sensitive fields in a dictionary.
+log_model_metadata : Log model metadata in a structured, optionally redacted format.
+log_context_entry_exit : Decorator for logging context manager entry/exit.
+
+Examples
+--------
+>>> @log_event(log_args=True, log_result=True)
+... def foo(x): return x + 1
+>>> foo(2)
+"""
+
+import functools
 import logging
+import pprint
+import time
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
-import functools
-import time
-import pprint
 
-LOGGER_NAME = "qspy"
-LOG_PATH = ".qspy/logs/qspy.log"
+from qspy.config import LOG_PATH, LOGGER_NAME
 
 
 def setup_qspy_logger(
     log_path=LOG_PATH, max_bytes=1_000_000, backup_count=5, level=logging.INFO
 ):
+    """
+    Set up the QSPy logger with a rotating file handler.
+
+    Parameters
+    ----------
+    log_path : str or Path, optional
+        Path to the log file (default: LOG_PATH).
+    max_bytes : int, optional
+        Maximum size of a log file before rotation (default: 1,000,000).
+    backup_count : int, optional
+        Number of backup log files to keep (default: 5).
+    level : int, optional
+        Logging level (default: logging.INFO).
+
+    Returns
+    -------
+    logging.Logger
+        The configured QSPy logger.
+    """
     log_file = Path(log_path)
     log_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -41,6 +83,13 @@ _LOGGER_INITIALIZED = False
 
 
 def ensure_qspy_logging():
+    """
+    Ensure the QSPy logger is initialized.
+
+    Returns
+    -------
+    None
+    """
     global _LOGGER_INITIALIZED
     if not _LOGGER_INITIALIZED:
         setup_qspy_logger()
@@ -50,6 +99,25 @@ def ensure_qspy_logging():
 def log_event(
     logger_name=LOGGER_NAME, log_args=False, log_result=False, static_method=False
 ):
+    """
+    Decorator for logging function entry, exit, arguments, and results.
+
+    Parameters
+    ----------
+    logger_name : str, optional
+        Name of the logger to use (default: LOGGER_NAME).
+    log_args : bool, optional
+        If True, log function arguments (default: False).
+    log_result : bool, optional
+        If True, log function result (default: False).
+    static_method : bool, optional
+        If True, skip the first argument (for static methods).
+
+    Returns
+    -------
+    function
+        Decorated function with logging.
+    """
     ensure_qspy_logging()
     logger = logging.getLogger(logger_name)
 
@@ -63,9 +131,7 @@ def log_event(
             if log_args:
                 logger.info(f"    Args: {args}, Kwargs: {kwargs}")
             start = time.time()
-            print(args, kwargs)
             result = func(*args, **kwargs)
-
             duration = time.time() - start
             logger.info(f"<<< Exiting `{fname}` ({duration:.3f}s)")
             if log_result:
@@ -81,6 +147,19 @@ REDACT_KEYS = {"current_user", "author", "hostname", "ip", "email"}
 
 
 def redact_sensitive(data):
+    """
+    Recursively redact sensitive fields in a dictionary or list.
+
+    Parameters
+    ----------
+    data : dict or list or object
+        The data structure to redact.
+
+    Returns
+    -------
+    object
+        The redacted data structure.
+    """
     if isinstance(data, dict):
         return {
             k: "[REDACTED]" if k in REDACT_KEYS else redact_sensitive(v)
@@ -97,11 +176,20 @@ def log_model_metadata(
     """
     Log QSPy model metadata in structured format, with optional redaction.
 
-    Args:
-        metadata (dict): The metadata dictionary to log.
-        logger_name (str): Name of the logger.
-        level (int): Logging level.
-        redact (bool): If True, redact sensitive fields.
+    Parameters
+    ----------
+    metadata : dict
+        The metadata dictionary to log.
+    logger_name : str, optional
+        Name of the logger.
+    level : int, optional
+        Logging level.
+    redact : bool, optional
+        If True, redact sensitive fields (default: True).
+
+    Returns
+    -------
+    None
     """
     logger = logging.getLogger(logger_name)
     if not metadata:
@@ -119,6 +207,24 @@ def log_model_metadata(
 
 
 def log_context_entry_exit(logger_name=LOGGER_NAME, log_duration=True, track_attr=None):
+    """
+    Decorator for logging context manager entry and exit, with optional duration and tracking.
+
+    Parameters
+    ----------
+    logger_name : str, optional
+        Name of the logger to use (default: LOGGER_NAME).
+    log_duration : bool, optional
+        If True, log the duration of the context (default: True).
+    track_attr : str or None, optional
+        If provided, track additions to this model attribute (e.g., 'rules').
+
+    Returns
+    -------
+    function
+        Decorated context manager method.
+    """
+
     def decorator(method):
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):

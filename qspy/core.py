@@ -1,3 +1,46 @@
+"""
+QSPy Core Model Extensions and Utilities
+========================================
+
+This module extends the PySB modeling framework with QSPy-specific features for
+quantitative systems pharmacology (QSP) workflows. It provides enhanced Model and
+Monomer classes, operator overloads for semantic annotation, and utilities for
+metadata, logging, and summary/diagram generation.
+
+Classes
+-------
+Model : QSPy extension of the PySB Model class with metadata, summary, and diagram support.
+Monomer : QSPy extension of the PySB Monomer class with functional tag support.
+
+Functions
+---------
+mp_lshift : Overloads '<<' for MonomerPattern/ComplexPattern to create Initial objects.
+mp_invert : Overloads '~' for MonomerPattern/ComplexPattern to create Observables with auto-naming.
+mp_gt : Overloads '>' for MonomerPattern/ComplexPattern to create Observables with custom names.
+_make_mono_string : Utility to generate string names for MonomerPatterns.
+_make_complex_string : Utility to generate string names for ComplexPatterns.
+
+Operator Overloads
+------------------
+- MonomerPattern/ComplexPattern << value : Create Initial objects.
+- ~MonomerPattern/ComplexPattern : Create Observable objects with auto-generated names.
+- MonomerPattern/ComplexPattern > "name" : Create Observable objects with custom names.
+- Monomer @ tag : Attach a functional tag to a Monomer.
+
+Examples
+--------
+>>> from qspy.core import Model, Monomer
+>>> m = Monomer("A", ["b"])
+>>> m @ PROTEIN.LIGAND
+>>> model = Model()
+>>> model.with_units("nM", "min", "uL")
+>>> ~m(b=None)
+Observable('A_u', m(b=None))
+
+>>> m(b=None) << 100
+Initial(m(b=None), 100)
+"""
+
 from pathlib import Path
 from datetime import datetime
 import os
@@ -15,40 +58,76 @@ import pysb.units
 from pysb.units.core import *
 from pysb.core import SelfExporter, MonomerPattern, ComplexPattern
 import pysb.core
-from metadata import METADATA_DIR
-from utils.logging import ensure_qspy_logging
-from functionaltags import FunctionalTag
-from utils.logging import log_event, LOGGER_NAME
+from qspy.config import METADATA_DIR, LOGGER_NAME, SUMMARY_DIR
+from qspy.utils.logging import ensure_qspy_logging
+from qspy.functionaltags import FunctionalTag
+from qspy.utils.logging import log_event
 
 __all__ = pysb.units.core.__all__
 
-SUMMARY_DIR = METADATA_DIR + "/model_summary.md"
+
 
 
 class Model(Model):
-    # def __init__(
-    #     self,
-    #     name=None,
-    #     base=None,
-    #     units={"concentration": "mg/L", "time": "h", "volume": "L"},
-    # ):
-    #     super().__init__(name='model', base=base)
-    #     #SelfExporter.export(self)
-    #     SimulationUnits(**units)
-    #     return
+    """
+    QSPy extension of the PySB Model class.
+
+    Adds QSPy-specific utilities, metadata handling, and summary/diagram generation
+    to the standard PySB Model. Supports custom units, logging, and functional tagging.
+
+    Methods
+    -------
+    with_units(concentration, time, volume)
+        Set simulation units for concentration, time, and volume.
+    component_names
+        List of component names in the model.
+    qspy_metadata
+        Dictionary of QSPy metadata for the model.
+    summarize(path, include_diagram)
+        Generate a Markdown summary of the model and optionally a diagram.
+    """
+
     @log_event(log_args=True, static_method=True)
     @staticmethod
     def with_units(concentration: str = "mg/L", time: str = "h", volume: str = "L"):
+        """
+        Set simulation units for the model.
+
+        Parameters
+        ----------
+        concentration : str, optional
+            Concentration units (default "mg/L").
+        time : str, optional
+            Time units (default "h").
+        volume : str, optional
+            Volume units (default "L").
+        """
         ensure_qspy_logging()
         SimulationUnits(concentration, time, volume)
         return
 
     @property
     def component_names(self):
+        """
+        List the names of all components in the model.
+
+        Returns
+        -------
+        list of str
+            Names of model components.
+        """
         return [component.name for component in self.components]
 
     @property
     def qspy_metadata(self):
+        """
+        Return QSPy metadata dictionary for the model.
+
+        Returns
+        -------
+        dict
+            Metadata dictionary if available, else empty dict.
+        """
         if hasattr(self, "qspy_metadata_tracker"):
             return self.qspy_metadata_tracker.metadata
         else:
@@ -56,7 +135,20 @@ class Model(Model):
 
     @log_event(log_args=True)
     def summarize(self, path=SUMMARY_DIR, include_diagram=True):
-        """Generate a Markdown summary of the model and optionally a diagram."""
+        """
+        Generate a Markdown summary of the model and optionally a diagram.
+
+        Parameters
+        ----------
+        path : str or Path, optional
+            Output path for the summary file (default: SUMMARY_DIR).
+        include_diagram : bool, optional
+            Whether to include a model diagram if SBMLDiagrams is available (default: True).
+
+        Returns
+        -------
+        None
+        """
         lines = []
         lines.append(f"# QSPy Model Summary: `{self.name}`\n")
 
@@ -83,7 +175,7 @@ class Model(Model):
 
         lines.append("## Monomers")
         lines += [
-            f"- `{m.name}` with sites `{m.sites}` and states `{m.site_states}` and CLASS::FUNCTION `{m.functional_tag}`"
+            f"- `{m.name}` with sites `{m.sites}` and states `{m.site_states}` and CLASS::FUNCTION `{m.functional_tag.value}`"
             for m in self.monomers
         ] or ["_None defined_"]
 
@@ -120,6 +212,22 @@ class Model(Model):
 
 
 def mp_lshift(self, value):
+    """
+    Overload the '<<' operator for MonomerPattern and ComplexPattern.
+
+    Allows creation of Initial objects using the syntax:
+        monomer_pattern << value
+
+    Parameters
+    ----------
+    value : float or Parameter
+        Initial value for the pattern.
+
+    Returns
+    -------
+    Initial
+        Initial object for the pattern.
+    """
     return Initial(self, value)
 
 
@@ -133,6 +241,19 @@ translation = str.maketrans(
 
 
 def _make_mono_string(monopattern):
+    """
+    Generate a string representation for a MonomerPattern.
+
+    Parameters
+    ----------
+    monopattern : MonomerPattern or str
+        The monomer pattern or its string representation.
+
+    Returns
+    -------
+    str
+        String representation suitable for naming.
+    """
     if isinstance(monopattern, MonomerPattern):
         string_repr = repr(monopattern)
     elif isinstance(monopattern, str):
@@ -154,7 +275,7 @@ def _make_mono_string(monopattern):
             bond, state = parenthetical.split(",")
             bond = bond.split("=")[1]
             state = state.split("'")[1]
-            print(bond, state)
+            #print(bond, state)
             if bond == "None":
                 if comp:
                     # None bond w/ state and compartment
@@ -170,7 +291,7 @@ def _make_mono_string(monopattern):
         else:
             # Get bond or state info when only one is present (not both) [e.g., (b=None) or (state='u')]
             bond_or_state = parenthetical.split("=")[1].replace("'", "")
-            print(bond_or_state)
+            #print(bond_or_state)
             if comp:
                 # Bond/state and compartment
                 name = f"{mono}_{bond_or_state}_{comp}"
@@ -188,6 +309,19 @@ def _make_mono_string(monopattern):
     return name
 
 def _make_complex_string(complexpattern):
+    """
+    Generate a string representation for a ComplexPattern.
+
+    Parameters
+    ----------
+    complexpattern : ComplexPattern
+        The complex pattern.
+
+    Returns
+    -------
+    str
+        String representation suitable for naming.
+    """
     string_repr = repr(complexpattern)
     # Split at the bond operator '%' to 
     # get the left and right-hand monomer patterns.
@@ -205,6 +339,17 @@ def _make_complex_string(complexpattern):
 #    ~pattern , e.g.:
 #    ~molecA() # name='molecA'
 def mp_invert(self):
+    """
+    Overload the '~' operator for MonomerPattern and ComplexPattern.
+
+    Allows creation of Observable objects using the syntax:
+        ~pattern
+
+    Returns
+    -------
+    Observable
+        Observable object with an auto-generated name.
+    """
 
     if isinstance(self, MonomerPattern):
         name = _make_mono_string(self)
@@ -224,6 +369,27 @@ pysb.core.ComplexPattern.__invert__ = mp_invert
 #    pattern > "observable_name", e.g.:
 #    molecA() > "A"
 def mp_gt(self, other):
+    """
+    Overload the '>' operator for MonomerPattern and ComplexPattern.
+
+    Allows creation of Observable objects with a custom name using the syntax:
+        pattern > "observable_name"
+
+    Parameters
+    ----------
+    other : str
+        Name for the observable.
+
+    Returns
+    -------
+    Observable
+        Observable object with the specified name.
+
+    Raises
+    ------
+    ValueError
+        If the provided name is not a string.
+    """
     if not isinstance(other, str):
         raise ValueError("Observable name should be a string")
     else:
@@ -233,13 +399,48 @@ pysb.core.MonomerPattern.__gt__ = mp_gt
 pysb.core.ComplexPattern.__gt__ = mp_gt
 
 class Monomer(Monomer):
+    """
+    QSPy extension of the PySB Monomer class.
+
+    Adds support for functional tags and operator overloading for semantic annotation.
+
+    Methods
+    -------
+    __matmul__(other)
+        Attach a functional tag to the monomer using the '@' operator.
+    __imatmul__(other)
+        Attach a functional tag to the monomer in-place using the '@=' operator.
+    __repr__()
+        String representation including the functional tag if present.
+    """
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize a Monomer with optional functional tag.
+
+        Parameters
+        ----------
+        *args, **kwargs
+            Arguments passed to the PySB Monomer constructor.
+        """
         self.functional_tag = None
         super().__init__(*args, **kwargs)
         return
 
     def __matmul__(self, other: Enum):
+        """
+        Attach a functional tag to the monomer using the '@' operator.
+
+        Parameters
+        ----------
+        other : Enum
+            Enum member representing the functional tag.
+
+        Returns
+        -------
+        Monomer
+            The monomer instance with the functional tag set.
+        """
         if isinstance(other, Enum):
             ftag_str = other.value
             ftag = FunctionalTag(*FunctionalTag.parse(ftag_str))
@@ -247,6 +448,19 @@ class Monomer(Monomer):
         return self
 
     def __imatmul__(self, other: Enum):
+        """
+        Attach a functional tag to the monomer in-place using the '@=' operator.
+
+        Parameters
+        ----------
+        other : Enum
+            Enum member representing the functional tag.
+
+        Returns
+        -------
+        Monomer
+            The monomer instance with the functional tag set.
+        """
         if isinstance(other, Enum):
             ftag_str = other.value
             ftag = FunctionalTag(*FunctionalTag.parse(ftag_str))
@@ -254,6 +468,14 @@ class Monomer(Monomer):
         return self
 
     def __repr__(self):
+        """
+        Return a string representation of the monomer, including the functional tag if present.
+
+        Returns
+        -------
+        str
+            String representation of the monomer.
+        """
         if self.functional_tag is None:
             return super().__repr__()
         else:

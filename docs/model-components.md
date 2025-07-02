@@ -16,7 +16,7 @@ with monomers():
 
 This organizational style mimics classic declarative DSLs like BioNetGen and rxode2, promoting:
 
-  - Leaner model encoding
+  - Leaner model encoding, especially when definining large numbers of components
   - Enhanced readability
   - Semantic grouping of components
 
@@ -59,6 +59,12 @@ Context-free equivalent:
 ```python
 Monomer("Ligand", ['r']) @ DRUG.INHIBITOR
 Monomer("Receptor", ['l']) @ PROTEIN.RECEPTOR
+```
+
+Assigning a functional tag inside the `monomers` context is optional, so the following pattern is also valid:
+with monomers():
+    Ligand = (["r"], None)
+    Receptor = (["l"], None)
 ```
 
 **QSPy enhancements:**
