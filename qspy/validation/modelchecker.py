@@ -36,7 +36,7 @@ from qspy.core import Monomer, Parameter
 from qspy.utils.logging import ensure_qspy_logging, log_event
 from qspy.config import LOGGER_NAME
 
-warnings.simplefilter('always')
+warnings.simplefilter('always', UserWarning)  # Always show UserWarnings
 
 class ModelChecker:
     """
@@ -135,6 +135,7 @@ class ModelChecker:
             msg = f"Unused Monomers (not included in any Rules): {[m for m in unused]}"
             self.logger.warning(f"⚠️ {msg}")
             warnings.warn(msg, category=UserWarning)
+            print(f"⚠️ {msg}")  # Print to console for visibility
 
     def check_unused_parameters(self):
         """
@@ -164,6 +165,7 @@ class ModelChecker:
             msg = f"Unused Parameters: {[p for p in unused]}"
             self.logger.warning(f"⚠️ {msg}")
             warnings.warn(msg, category=UserWarning)
+            print(f"⚠️ {msg}")  # Print to console for visibility
 
     def check_zero_valued_parameters(self):
         """
@@ -180,6 +182,7 @@ class ModelChecker:
             msg = f"Zero-valued Parameters: {[p.name for p in zeros]}"
             self.logger.warning(f"⚠️ {msg}")
             warnings.warn(msg, category=UserWarning)
+            print(f"⚠️ {msg}")  # Print to console for visibility
 
     def check_missing_initial_conditions(self):
         """
@@ -202,6 +205,7 @@ class ModelChecker:
             msg = f"Monomers missing initial conditions: {list(missing)}"
             self.logger.warning(f"⚠️ {msg}")
             warnings.warn(msg, category=UserWarning)
+            print(f"⚠️ {msg}")  # Print to console for visibility
 
     def check_dangling_reused_bonds(self):
         """
