@@ -1,0 +1,9 @@
+# .coveragerc
+
+[run]
+source = qspy
+
+[report]
+omit =
+    */tests/*
+    */site-packages/*
