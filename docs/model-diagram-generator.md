@@ -1,12 +1,12 @@
-# ModelMermaidDiagram: Visualizing QSPy Models
+# ModelMermaidDiagrammer: Visualizing QSPy Models
 
-The `ModelMermaidDiagram` object in the `qspy.utils.diagram` module provides a convenient way to generate flowchart-style diagrams of your QSPy models using [Mermaid](https://mermaid-js.github.io/mermaid/). These diagrams help you visualize the structure of your model, including compartments, species, and reactions, and can be embedded in Markdown documentation or exported to standalone files.
+The `ModelMermaidDiagrammer` object in the `qspy.utils.diagram` module provides a convenient way to generate flowchart-style diagrams of your QSPy models using [Mermaid](https://mermaid-js.github.io/mermaid/). These diagrams help you visualize the structure of your model, including compartments, species, and reactions, and can be embedded in Markdown documentation or exported to standalone files.
 
 ---
 
-## What is `ModelMermaidDiagram`?
+## What is `ModelMermaidDiagrammer`?
 
-`ModelMermaidDiagram` is a utility class that takes a QSPy or PySB model and produces a Mermaid diagram representing the model's components and their interactions. This is especially useful for documentation, presentations, and model review.
+`ModelMermaidDiagrammer` is a utility class that takes a QSPy or PySB model and produces a Mermaid diagram representing the model's components and their interactions. This is especially useful for documentation, presentations, and model review.
 
 ---
 
@@ -26,14 +26,14 @@ The `ModelMermaidDiagram` object in the `qspy.utils.diagram` module provides a c
 ```python
 # my_model.py
 from qspy.core import Model
-from qspy.utils.diagram import ModelMermaidDiagram
+from qspy.utils.diagram import ModelMermaidDiagrammer
 
 # Build your model here...
 Model(name="MyModel")
 # ... define monomers, parameters, rules, etc.
 
 # Create a diagram object
-ModelMermaidDiagram(model)
+ModelMermaidDiagrammer(model)
 ```
 
 then
@@ -51,7 +51,7 @@ model.mermaid_diagram.write_mermaid_file("my_model_diagram.mmd")
 
 ### Including in Model Summary
 
-If you attach a `ModelMermaidDiagram` instance to your model as (`model.mermaid_diagram`), it will be automatically included in the output of `model.markdown_summary()`:
+If you attach a `ModelMermaidDiagrammer` instance to your model (as `model.mermaid_diagram`), it will be automatically included in the output of `model.markdown_summary()`:
 
 ---
 

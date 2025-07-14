@@ -14,7 +14,7 @@ The `markdown_summary` method is available on QSPy `Model` objects. It generates
 - Initial conditions
 - Rules
 - Observables
-- (Optionally) a model diagram if the `ModelMermaidDiagram` object is included in the model definition.
+- (Optionally) a model diagram if the `ModelMermaidDiagrammer` object is included in the model definition.
 
 This summary is useful for documentation, collaboration, and reproducibility.
 
@@ -46,7 +46,7 @@ model.markdown_summary(path="my_model_summary.md")
 
 ### Including a Model Diagram
 
-If you include an instance of `ModelMermaidDiagram` in the model definition then  the corresponding diagram will be included in the summary:
+If you include an instance of `ModelMermaidDiagrammer` in the model definition then  the corresponding diagram will be included in the summary:
 
 ```python
 model.markdown_summary(include_diagram=True)
