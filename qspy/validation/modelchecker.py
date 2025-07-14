@@ -30,13 +30,15 @@ from pysb.pattern import (
     RulePatternMatcher,
     ReactionPatternMatcher,
 )
+from pysb.bng import generate_equations
 from pysb.units.core import check as units_check
 
 from qspy.core import Monomer, Parameter
 from qspy.utils.logging import ensure_qspy_logging, log_event
 from qspy.config import LOGGER_NAME
 
-warnings.simplefilter('always', UserWarning)  # Always show UserWarnings
+warnings.simplefilter("always", UserWarning)  # Always show UserWarnings
+
 
 class ModelChecker:
     """
@@ -105,6 +107,8 @@ class ModelChecker:
         # units_check(self.model)
         self.check_dangling_reused_bonds()
         self.check_units()
+        self.check_equations_generation()
+        self.logger.info("✅ ModelChecker checks completed.")
 
     def check_unused_monomers(self):
         """
@@ -216,9 +220,38 @@ class ModelChecker:
         None
         """
         for rule in self.model.rules:
-            check_dangling_bonds(rule.rule_expression.reactant_pattern)
+            try:
+                check_dangling_bonds(rule.rule_expression.reactant_pattern)
+            except Exception as e:
+                msg = f"Error checking reactant pattern in rule '{rule.name}': {e}"
+                self.logger.error(msg)
+                warnings.warn(msg, category=UserWarning)
+                print(msg)  # Print to console for visibility
             if rule.is_reversible:
-                check_dangling_bonds(rule.rule_expression.product_pattern)
+                try:
+                    check_dangling_bonds(rule.rule_expression.product_pattern)
+                except Exception as e:
+                    msg = f"Error checking product pattern in rule '{rule.name}': {e}"
+                    self.logger.error(msg)
+                    warnings.warn(msg, category=UserWarning)
+                    print(msg)  # Print to console for visibility
+
+    def check_equations_generation(self):
+        """
+        Run the `generate_equations` function on the model and capture and report any errors.
+
+        Returns
+        -------
+        None
+        """
+        try:
+            generate_equations(self.model)
+            self.logger.info("Model equations generated successfully.")
+        except Exception as e:
+            msg = f"Error generating model equations: {e}"
+            self.logger.error(msg)
+            warnings.warn(msg, category=UserWarning)
+            print(msg)  # Print to console for visibility
 
     @log_event()
     def check_units(self):

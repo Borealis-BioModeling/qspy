@@ -22,7 +22,9 @@ print(Ligand)
 ```
     >>> Monomer("Ligand", ['r']) @ protein::ligand
 
-This organizational style mimics the block-based structure of classic declarative DSLs, such as [BNGL](https://bionetgen.org/) and [rxode2](https://nlmixr2.github.io/rxode2/) model specificaitons, while preserving the flexibility of a programmatic Python environment. The goal is to further streamline model encoding and improve readability by minimizing boilerplate and promoting semantic grouping of related model components.
+This organizational style mimics the block-based structure of classic declarative DSLs, such as [BNGL](https://bionetgen.org/) and [rxode2](https://nlmixr2.github.io/rxode2/) model specificaitons, while preserving the flexibility of a programmatic Python environment. The goal is to further streamline model encoding and improve readability by minimizing boilerplate and promoting semantic grouping of related model components. 
+
+**QSPy contexts also incorporate logging functionality to help users track component additions and audit model assembly for reproducibility.**
 
 The sections that follow describe each model component and how QSPy extends their definition.
 
@@ -235,3 +237,9 @@ Compartment("PERIPHERAL", size=V_P)
 **QSPy enhancements:**
 
 - Contextual grouping with automatic introspection for compartment creation and naming (when using `compartments` context).
+
+## See Also
+
+- [Model Specification](model-summary-generator.md)
+- [Functional Tags](function-tags.md)
+- [PySB Tutorial](https://pysb.readthedocs.io/en/stable/tutorial.html)

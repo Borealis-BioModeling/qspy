@@ -158,6 +158,18 @@ class Model(Model):
             lines.append("## 🖼️ Model Diagram\n")
             lines.append(f"{diagram_md}\n")
 
+        # Core units table
+        lines.append("## Core Units\n| Quantity | Unit |")
+        lines.append("|-----------|------|")
+        units = getattr(self, "simulation_units", None)
+        if units:
+            lines.append(f"| Concentration | {units.concentration} |")
+            lines.append(f"| Time         | {units.time} |")
+            lines.append(f"| Volume       | {units.volume} |")
+        else:
+            lines.append("No core model units defined.")
+            lines.append("    They can added with the `Model.with_units` method.")
+
         # Component counts table
         lines.append("## Numbers of Model Component\n| Component Type | Count |")
         lines.append("|---------------|-------|")

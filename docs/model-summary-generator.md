@@ -1,12 +1,12 @@
 # Model Summary Generator in QSPy
 
-QSPy provides a convenient method for generating human-readable summaries of your model using the `Model.summarize` function. This feature helps you document, review, and share the structure and key properties of your quantitative systems pharmacology (QSP) models.
+QSPy provides a convenient method for generating human-readable summaries of your model using the `Model.markdown_summary` function. This feature helps you document, review, and share the structure and key properties of your quantitative systems pharmacology (QSP) models.
 
 ---
 
-## What is `Model.summarize`?
+## What is `Model.markdown_summary`?
 
-The `summarize` method is available on QSPy `Model` objects. It generates a Markdown summary file that includes:
+The `markdown_summary` method is available on QSPy `Model` objects. It generates a Markdown summary file that includes:
 
 - Model metadata (name, version, author, timestamp, hash)
 - Monomer definitions (including sites, states, and functional tags)
@@ -14,7 +14,7 @@ The `summarize` method is available on QSPy `Model` objects. It generates a Mark
 - Initial conditions
 - Rules
 - Observables
-- (Optionally) a model diagram if SBMLDiagrams is available
+- (Optionally) a model diagram if the `ModelMermaidDiagram` object is included in the model definition.
 
 This summary is useful for documentation, collaboration, and reproducibility.
 
@@ -33,7 +33,7 @@ model = Model().with_units(...)
 # ... define monomers, parameters, rules, etc.
 
 # Generate a summary file (default location: SUMMARY_DIR)
-model.summarize()
+model.markdown_summary()
 ```
 
 ### Custom Output Path
@@ -41,15 +41,15 @@ model.summarize()
 You can specify a custom output path for the summary file:
 
 ```python
-model.summarize(path="my_model_summary.md")
+model.markdown_summary(path="my_model_summary.md")
 ```
 
 ### Including a Model Diagram
 
-If you have SBMLDiagrams installed, you can include a diagram in the summary:
+If you include an instance of `ModelMermaidDiagram` in the model definition then  the corresponding diagram will be included in the summary:
 
 ```python
-model.summarize(include_diagram=True)
+model.markdown_summary(include_diagram=True)
 ```
 
 ## Example Output
@@ -68,35 +68,64 @@ A generated summary file (Markdown) will look like:
 
 ## 🖼️ Model Diagram
 
-![Model Diagram](.qspy/model_diagram.png)
+<!-- (Diagram would appear here if generated) -->
+
+## Core Units
+| Quantity      | Unit |
+|-------------- |------|
+| Concentration | nM   |
+| Time          | h    |
+| Volume        | L    |
+
+## Model Component Counts
+| Component Type      | Count |
+|---------------------|-------|
+| Monomers            | 2     |
+| Parameters          | 2     |
+| Expressions         | 0     |
+| Compartments        | 0     |
+| Rules               | 1     |
+| Initial Conditions  | 2     |
+| Observables         | 2     |
+
+## Compartments
+| Name  | Size |
+|-------|------|
+| _None_ | _N/A_ |
 
 ## Monomers
-
-- `A` with sites `['b']` and states `{'b': ['u', 'p']}` and CLASS::FUNCTION `protein::ligand`
-- `B` with sites `[]` and states `{}` and CLASS::FUNCTION `protein::receptor`
+| Name | Sites   | States                      | Functional Tag      |
+|------|---------|-----------------------------|---------------------|
+| A    | ['b']   | {'b': ['u', 'p']}           | protein::ligand     |
+| B    | []      | {}                          | protein::receptor   |
 
 ## Parameters
-
 | Name | Value | Units |
-| ---- | ----- | ----- |
+|------|-------|-------|
 | k1   | 1.0   | 1/min |
 | k2   | 0.5   | 1/min |
 
-## Initial Conditions
+## Expressions
+| Name | Expression |
+|------|------------|
+| _None_ | _N/A_    |
 
+## Initial Conditions
 | Species   | Value | Units |
-| --------- | ----- | ----- |
+|-----------|-------|-------|
 | A(b=None) | 100   | nM    |
 | B()       | 200   | nM    |
 
 ## Rules
-
-- `Rule('bind', A(b=None) + B() >> A(b=1) % B(), k1)`
+| Name | Rule Expression                        | k_f | k_r  | reversible |
+|------|----------------------------------------|-----|------|------------|
+| bind | `A(b=None) + B() >> A(b=1) % B()`      | k1  | None | False      |
 
 ## Observables
-
-- `A_total`
-- `B_total`
+| Name     | Reaction Pattern |
+|----------|------------------|
+| A_total  | `A()`            |
+| B_total  | `B()`            |
 ```
 
 ## Why Use Model Summaries?
