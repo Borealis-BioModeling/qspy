@@ -105,8 +105,18 @@ class ModelMermaidDiagrammer:
         str
             The sanitized label without compartment information.
         """
+        #print(label)
         if "** " in label:
-            return label.split("** ")[0]
+            if "-" in label:
+                # Remove compartment from labels with bound monomers
+                # e.g., "molec_a() ** CENTRAL % molec_b() ** TUMOR"
+                # becomes "molec_a() % molec_b()"
+                parts = label.split("-")
+                return parts[0].split("** ")[0] + "::" + parts[1].split("** ")[0]
+            else:
+                # Remove compartment info
+                # e.g., "molec_a() ** CENTRAL" -> "molec_a()"
+                return label.split("** ")[0]
         return label
 
     def _build_flowchart(self):
