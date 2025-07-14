@@ -18,6 +18,10 @@ Modules
 """
 
 from qspy.config import QSPY_VERSION
+__version__ = QSPY_VERSION
+
+from qspy.core import *
+
 from pysb.pkpd import simulate
 
-__version__ = QSPY_VERSION
+

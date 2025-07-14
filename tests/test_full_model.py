@@ -66,12 +66,13 @@ with rules():
 
 print("----------observables-------------")
 with observables():
-    ~molec_a() ** CENTRAL
+    ~(molec_a() ** CENTRAL)
     ~molec_c(b=None, state="u")
     molec_c(b=None, state="p") > "C_p"
 
 ModelMetadataTracker(__version__, author=__author__)
 ModelChecker()
+
 
 @pytest.mark.integration
 def test_full_model():
@@ -85,9 +86,16 @@ def test_full_model():
     assert len(model.monomers) > 0, "Model should have monomers defined"
     assert len(model.rules) > 0, "Model should have rules defined"
     assert len(model.observables) > 0, "Model should have observables defined"
-    assert model.qspy_metadata_tracker is not None, "Model should have metadata tracker initialized"
-    assert model.monomers['molec_b'].functional_tag == PROTEIN.ANTIBODY, "Monomer 'molec_b' should have functional tag 'ANTIBODY'"
-    assert hasattr(model, "simulation_units"), "Model should have simulation units defined"
+    assert model.qspy_metadata_tracker is not None, (
+        "Model should have metadata tracker initialized"
+    )
+    assert model.monomers["molec_b"].functional_tag == PROTEIN.ANTIBODY, (
+        "Monomer 'molec_b' should have functional tag 'ANTIBODY'"
+    )
+    assert hasattr(model, "simulation_units"), (
+        "Model should have simulation units defined"
+    )
+
 
 if __name__ == "__main__":
     test_full_model()

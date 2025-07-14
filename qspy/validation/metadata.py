@@ -33,10 +33,14 @@ import numpy
 import pysb
 import scipy
 import sympy
+import pysb.pkpd
+import pysb.units
+import mergram
 import toml
 from microbench import MicroBench, MBHostInfo, MBPythonVersion
 from pysb.core import SelfExporter
 
+import qspy
 from qspy.config import METADATA_DIR, LOGGER_NAME
 from qspy.utils.logging import ensure_qspy_logging
 
@@ -50,9 +54,9 @@ class QSPyBench(MicroBench, MBPythonVersion, MBHostInfo):
     Attributes
     ----------
     capture_versions : tuple
-        Tuple of modules to capture version info for (pysb, numpy, scipy, sympy).
+        Tuple of modules to capture version info for (qspy, numpy, scipy, sympy, pysb, pysb.pkpd, pysb.units, mergram).
     """
-    capture_versions = (pysb, numpy, scipy, sympy)
+    capture_versions = (qspy, numpy, scipy, sympy, pysb, pysb.pkpd, pysb.units, mergram)
 
 
 class ModelMetadataTracker:

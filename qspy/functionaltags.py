@@ -542,3 +542,39 @@ class NANOPARTICLE(Enum):
     IMAGING = prefixer("imaging", NANOPARTICLE_PREFIX)
     SENSING = prefixer("sensing", NANOPARTICLE_PREFIX)
     THERANOSTIC = prefixer("theranostic", NANOPARTICLE_PREFIX)
+
+
+# # === Rate constant orders ===
+# RATE_PREFIX = "rate_constant"
+
+
+# class RATE(Enum):
+#     """
+#     Functional tag definitions for kinetic rate types.
+
+#     This enum provides standardized semantic tags for common kinetic rate orders
+#     in quantitative systems pharmacology models. Each member is constructed
+#     using the `prefixer` utility to combine the `RATE_PREFIX` with a
+#     rate order label, producing values like "rate_constant::first-order".
+
+#     Members
+#     -------
+#     ZERO : str
+#         Zero-order rate constant (rate independent of concentration).
+#     FIRST : str
+#         First-order rate constant (rate proportional to one reactant).
+#     SECOND : str
+#         Second-order rate constant (rate proportional to two reactants).
+
+#     Examples
+#     --------
+#     >>> RATE.FIRST.value
+#     'rate_constant::first-order'
+
+#     >>> tag = FunctionalTag.parse(RATE.SECOND.value)
+#     ('rate_constant', 'second-order')
+#     """
+
+#     ZERO = prefixer("zero-order", RATE_PREFIX)
+#     FIRST = prefixer("first-order", RATE_PREFIX)
+#     SECOND = prefixer("second-order", RATE_PREFIX)

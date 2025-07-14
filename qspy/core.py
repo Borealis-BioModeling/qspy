@@ -46,14 +46,7 @@ from datetime import datetime
 import os
 import re
 from enum import Enum
-from pysb.export import export as pysb_export
 
-try:
-    import SBMLDiagrams
-
-    HAS_SBMLDIAGRAMS = True
-except ImportError:
-    HAS_SBMLDIAGRAMS = False
 import pysb.units
 from pysb.units.core import *
 from pysb.core import SelfExporter, MonomerPattern, ComplexPattern
@@ -63,9 +56,7 @@ from qspy.utils.logging import ensure_qspy_logging
 from qspy.functionaltags import FunctionalTag
 from qspy.utils.logging import log_event
 
-__all__ = pysb.units.core.__all__
-
-
+__all__ = pysb.units.core.__all__.copy()
 
 
 class Model(Model):
@@ -153,50 +144,91 @@ class Model(Model):
         lines.append(f"# QSPy Model Summary: `{self.name}`\n")
 
         metadata = self.qspy_metadata
-        lines.append(f"**Model name**: `{self.name}`")
-        lines.append(f"**Hash**: `{metadata.get('hash', 'N/A')}`")
-        lines.append(f"**Version**: {metadata.get('version', 'N/A')}")
-        lines.append(f"**Author**: {metadata.get('author', 'N/A')}")
-        lines.append(f"**Executed by**: {metadata.get('current_user', 'N/A')}")
+        lines.append(f"**Model name**: `{self.name}` \n")
+        lines.append(f"**Hash**: \n`{metadata.get('hash', 'N/A')}` \n")
+        lines.append(f"**Version**: {metadata.get('version', 'N/A')} \n")
+        lines.append(f"**Author**: {metadata.get('author', 'N/A')} \n")
+        lines.append(f"**Executed by**: {metadata.get('current_user', 'N/A')} \n")
         lines.append(
             f"**Timestamp**: {metadata.get('created_at', datetime.now().isoformat())}\n"
         )
 
-        if include_diagram and HAS_SBMLDIAGRAMS:
-            diagram_path = Path(".qspy/model_diagram.png")
-            diagram_path.parent.mkdir(parents=True, exist_ok=True)
-            sbml_str = pysb_export(self, "sbml")
-            with open(".qspy/temp_model.xml", "w") as f:
-                f.write(sbml_str)
-            diagram = SBMLDiagrams.load(".qspy/temp_model.xml")
-            diagram.draw(output_file=str(diagram_path))
+        if include_diagram and hasattr(self, "mermaid_diagram"):
+            diagram_md = self.mermaid_diagram.markdown_block
             lines.append("## 🖼️ Model Diagram\n")
-            lines.append(f"![Model Diagram]({diagram_path})\n")
+            lines.append(f"{diagram_md}\n")
 
-        lines.append("## Monomers")
+        # Component counts table
+        lines.append("## Model Component Counts\n| Component Type | Count |")
+        lines.append("|---------------|-------|")
         lines += [
-            f"- `{m.name}` with sites `{m.sites}` and states `{m.site_states}` and CLASS::FUNCTION `{m.functional_tag.value}`"
-            for m in self.monomers
-        ] or ["_None defined_"]
+            f"| Monomers | {len(getattr(self, 'monomers', []))} |",
+            f"| Parameters | {len(getattr(self, 'parameters', []))} |",
+            f"| Expressions | {len(getattr(self, 'expressions', []))} |",
+            f"| Compartments | {len(getattr(self, 'compartments', []))} |",
+            f"| Rules | {len(getattr(self, 'rules', []))} |",
+            f"| Initial Conditions | {len(getattr(self, 'initial_conditions', []))} |",
+            f"| Observables | {len(getattr(self, 'observables', []))} |",
+        ]
 
+        # Compartments table
+        lines.append("\n## Compartments\n| Name | Size |")
+        lines.append("|------|------|")
+        lines += [
+            f"| {cpt.name} | {cpt.size.name if hasattr(cpt.size, 'name') else str(cpt.size)} |"
+            for cpt in getattr(self, "compartments", [])
+        ] or ["| _None_ | _N/A_ |"]
+
+        # Monomers table
+        lines.append("## Monomers\n| Name | Sites | States | Functional Tag |")
+        lines.append("|------|-------|--------|---------------|")
+        lines += [
+            f"| {m.name} | {m.sites} | {m.site_states} | {getattr(m.functional_tag, 'value', m.functional_tag)} |"
+            for m in self.monomers
+        ] or ["| _None_ | _N/A_ | _N/A_ | _N/A_ |"]
+
+        # Parameters table
         lines.append("\n## Parameters\n| Name | Value | Units |")
         lines.append("|------|--------|--------|")
         lines += [
             f"| {p.name} | {p.value} | {p.unit.to_string()} |" for p in self.parameters
         ] or ["| _None_ | _N/A_ |"]
 
+        # Expressions table
+        lines.append("\n## Expressions\n| Name | Expression |")
+        lines.append("|------|------------|")
+        lines += [
+            f"| {e.name} | `{e.expr}` |" for e in getattr(self, "expressions", [])
+        ] or ["| _None_ | _N/A_ |"]
+
+        # Initial Conditions table
         lines.append("\n## Initial Conditions\n| Species | Value | Units |")
         lines.append("|---------|--------|--------|")
         lines += [
-            f"| {str(ic[0])} | {ic[1].value if isinstance(ic[1], Parameter) else ic[1].get_value()} | {ic[1].units.value}"
+            f"| {str(ic[0])} | {ic[1].value if isinstance(ic[1], Parameter) else ic[1].get_value():.2f} | {ic[1].units.value}"
             for ic in self.initial_conditions
         ] or ["| _None_ | _N/A_ |"]
 
-        lines.append("\n## Rules")
-        lines += [f"- `{repr(r)}`" for r in self.rules] or ["_None defined_"]
+        def _sanitize_rule_expression(expr):
+            """
+            Sanitize rule expression for Markdown rendering.
+            Replaces ' | ' with ' \| ' to avoid Markdown table formatting issues.
+            """
+            return repr(expr).replace(" | ", " \| ")
+        # Rules table
+        lines.append("\n## Rules\n| Name | Rule Expression | k_f | k_r | reversible |")
+        lines.append("|------|-----------------|-----|-----|------------|")
+        lines += [
+            f"| {r.name} | `{_sanitize_rule_expression(r.rule_expression)}` | {r.rate_forward.name} | {r.rate_reverse.name if r.rate_reverse is not None else 'None'} | {r.is_reversible} |"
+            for r in self.rules
+        ] or ["| _None_ | _N/A_ | _N/A_ | _N/A_ | _N/A_ |"]
 
-        lines.append("\n## Observables")
-        lines += [f"- `{o.name}`" for o in self.observables] or ["_None defined_"]
+        # Observables table
+        lines.append("\n## Observables\n| Name | Reaction Pattern |")
+        lines.append("|------|------------------|")
+        lines += [
+            f"| {o.name} | `{o.reaction_pattern}` |" for o in self.observables
+        ] or ["| _None_ | _N/A_ |"]
 
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -259,8 +291,10 @@ def _make_mono_string(monopattern):
     elif isinstance(monopattern, str):
         string_repr = monopattern
     else:
-        raise ValueError('Input pattern must a MonomerPattern or string representation of one')
-    #name = "place_holder"
+        raise ValueError(
+            "Input pattern must a MonomerPattern or string representation of one"
+        )
+    # name = "place_holder"
     # Get the text (if any) inside the parenthesis [e.g., molecule(b=None)]
     parenthetical = re.search("\((.*)\)", string_repr).group(0).strip("(").strip(")")
     mono = string_repr.split("(")[0]
@@ -275,7 +309,7 @@ def _make_mono_string(monopattern):
             bond, state = parenthetical.split(",")
             bond = bond.split("=")[1]
             state = state.split("'")[1]
-            #print(bond, state)
+            # print(bond, state)
             if bond == "None":
                 if comp:
                     # None bond w/ state and compartment
@@ -291,7 +325,7 @@ def _make_mono_string(monopattern):
         else:
             # Get bond or state info when only one is present (not both) [e.g., (b=None) or (state='u')]
             bond_or_state = parenthetical.split("=")[1].replace("'", "")
-            #print(bond_or_state)
+            # print(bond_or_state)
             if comp:
                 # Bond/state and compartment
                 name = f"{mono}_{bond_or_state}_{comp}"
@@ -308,6 +342,7 @@ def _make_mono_string(monopattern):
             name = f"{mono}"
     return name
 
+
 def _make_complex_string(complexpattern):
     """
     Generate a string representation for a ComplexPattern.
@@ -323,17 +358,18 @@ def _make_complex_string(complexpattern):
         String representation suitable for naming.
     """
     string_repr = repr(complexpattern)
-    # Split at the bond operator '%' to 
+    # Split at the bond operator '%' to
     # get the left and right-hand monomer patterns.
-    mono_left, mono_right = string_repr.split('%')
+    mono_left, mono_right = string_repr.split("%")
     # Process each monomer pattern:
     name_left = _make_mono_string(mono_left)
     name_right = _make_mono_string(mono_right)
     name = f"{name_left}_{name_right}"
     return name
 
-# Make observable definition availabe with 
-# the iversion '~' prefix operator and an 
+
+# Make observable definition availabe with
+# the iversion '~' prefix operator and an
 # auto generated name based on the monomer or complex
 # pattern string:
 #    ~pattern , e.g.:
@@ -364,7 +400,8 @@ def mp_invert(self):
 pysb.core.MonomerPattern.__invert__ = mp_invert
 pysb.core.ComplexPattern.__invert__ = mp_invert
 
-# Make observable definition availabe with 
+
+# Make observable definition availabe with
 # the greater than sign '>' operator:
 #    pattern > "observable_name", e.g.:
 #    molecA() > "A"
@@ -395,8 +432,10 @@ def mp_gt(self, other):
     else:
         return Observable(other, self)
 
+
 pysb.core.MonomerPattern.__gt__ = mp_gt
 pysb.core.ComplexPattern.__gt__ = mp_gt
+
 
 class Monomer(Monomer):
     """
@@ -423,7 +462,9 @@ class Monomer(Monomer):
         *args, **kwargs
             Arguments passed to the PySB Monomer constructor.
         """
-        self.functional_tag = None
+        self.functional_tag = FunctionalTag(
+            "None", "None"
+        )  # Default to no functional tag
         super().__init__(*args, **kwargs)
         return
 

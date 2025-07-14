@@ -117,8 +117,10 @@ class parameters(ComponentContext):
         ValueError
             If the value or unit is invalid.
         """
+        # Accept sympy expressions directly as expressions
         if isinstance(val, sympy.Expr):
             return (val, None)
+        # Ensure tuple structure for numeric parameters
         if not isinstance(val, tuple) or len(val) != 2:
             raise ValueError(f"Parameter '{name}' must be a tuple: (value, unit)")
         value, unit = val
@@ -148,9 +150,11 @@ class parameters(ComponentContext):
         Parameter or Expression
             The created parameter or expression.
         """
+        # If value is a sympy expression, create an Expression
         if isinstance(value, sympy.Expr):
             expr = Expression(name, value)
             return expr
+        # Otherwise, create a Parameter
         param = Parameter(name, value, unit=unit)
         return param
 
@@ -172,6 +176,7 @@ class parameters(ComponentContext):
         None
         """
         super().__exit__(exc_type, exc_val, exc_tb)
+        # Check units for all parameters in the model
         units_check(self.model)
         return
 
@@ -214,6 +219,7 @@ class compartments(ComponentContext):
         ValueError
             If the size is not a Parameter or Expression.
         """
+        # Only allow Parameter or Expression for compartment size
         if not isinstance(size, (Parameter, Expression)):
             raise ValueError(
                 f"Compartment size for '{name}' must be a Parameter or constant expression"
@@ -280,6 +286,7 @@ class monomers(ComponentContext):
         ValueError
             If the tuple is not valid.
         """
+        # Accept either (sites, site_states) or (sites, site_states, functional_tag)
         if not isinstance(val, tuple) or (len(val) not in [2, 3]):
             raise ValueError(
                 f"Context-defined Monomer '{name}' must be a tuple: (sites, site_states) OR (sites, site_states, functional_tag)"
@@ -289,6 +296,7 @@ class monomers(ComponentContext):
             functional_tag = None
         if len(val) == 3:
             sites, site_states, functional_tag = val
+        # Validate types for each field
         if (sites is not None) and (not isinstance(sites, list)):
             raise ValueError(
                 f"Monomer sites value for '{name}' must be a list of site names"
@@ -325,9 +333,11 @@ class monomers(ComponentContext):
         core.Monomer
             The created monomer.
         """
+        # If no functional tag, create a plain Monomer
         if functional_tag is None:
             monomer = Monomer(name, sites, site_states)
         else:
+            # If functional tag is provided, attach it
             monomer = Monomer(name, sites, site_states) @ functional_tag
         return monomer
 
@@ -370,6 +380,7 @@ class expressions(ComponentContext):
         ValueError
             If the value is not a sympy.Expr.
         """
+        # Only allow sympy expressions for expressions
         if not isinstance(val, sympy.Expr):
             raise ValueError(f"Expression '{name}' must be a sympy.Expr")
         return (val,)
@@ -434,6 +445,7 @@ class rules(ComponentContext):
         ValueError
             If the tuple is not valid or contains invalid types.
         """
+        # Accept either (RuleExpression, rate_forward) or (RuleExpression, rate_forward, rate_reverse)
         if not isinstance(val, tuple) or (len(val) < 2 or len(val) > 3):
             raise ValueError(
                 f"Rule '{name}' input must be a tuple: (RuleExpression, rate_forward) if irreversible or (RuleExpression, rate_forward, rate_reverse) if reversible"
@@ -443,6 +455,7 @@ class rules(ComponentContext):
             rate_reverse = None
         elif len(val) == 3:
             rxp, rate_forward, rate_reverse = val
+        # Validate types for rule components
         if not isinstance(rxp, pysb.RuleExpression):
             raise ValueError(f"Rule '{name}' must contain a valid RuleExpression")
         if not isinstance(rate_forward, (Parameter, Expression)):
@@ -479,6 +492,7 @@ class rules(ComponentContext):
         Rule
             The created rule.
         """
+        # Create a Rule object with the provided arguments
         rule = Rule(name, rxp, rate_forward, rate_reverse)
         return rule
 
@@ -491,14 +505,36 @@ def initials():
     """
     Context manager for defining initial conditions in a QSPy model.
 
+    Tracks which initials are added within the context and logs them.
+
     Yields
     ------
     None
     """
+    import logging
+    from pysb.core import SelfExporter
+    from qspy.config import LOGGER_NAME
+    from qspy.utils.logging import ensure_qspy_logging
+
+    ensure_qspy_logging()
+    logger = logging.getLogger(LOGGER_NAME)
+    model = SelfExporter.default_model
+
+    # Record the set of initial names before entering the context
+    initials_before = set(str(init.pattern) for init in model.initials)
+    logger.info("[QSPy] Entering initials context manager")
     try:
         yield
     finally:
-        pass
+        # Record the set of initial names after exiting the context
+        initials_after = set(str(init.pattern) for init in model.initials)
+        added = initials_after - initials_before
+        if added:
+            # Log the names of newly added initials
+            added_initials = [init for init in model.initials if str(init.pattern) in added]
+            logger.info(f"[QSPy] Initials added in context: {added_initials}")
+        else:
+            logger.info("[QSPy] No new initials added")
 
 
 @contextmanager
@@ -510,10 +546,30 @@ def observables():
     ------
     None
     """
+    import logging
+    from pysb.core import SelfExporter
+    from qspy.config import LOGGER_NAME
+    from qspy.utils.logging import ensure_qspy_logging
+
+    ensure_qspy_logging()
+    logger = logging.getLogger(LOGGER_NAME)
+    model = SelfExporter.default_model
+
+    # Record the set of observable names before entering the context
+    observables_before = set(obs.name for obs in model.observables)
+    logger.info("[QSPy] Entering observables context manager")
     try:
         yield
     finally:
-        pass
+        # Record the set of observable names after exiting the context
+        observables_after = set(init.name for init in model.observables)
+        added = observables_after - observables_before
+        if added:
+            # Log the names of newly added observables
+            added_observables = [obs for obs in model.observables if obs.name in added]
+            logger.info(f"[QSPy] Observables added in context: {added_observables}")
+        else:
+            logger.info("[QSPy] No new observables added")
 
 
 class pk_macros:
@@ -536,6 +592,7 @@ class pk_macros:
         def noop(*args):
             pass
 
+        # Assign a placeholder method for PK macro operations
         self.eliminate = noop
         return self
 
@@ -558,5 +615,6 @@ class pk_macros:
         """
         print("Exiting context: cleaning up special_function")
         f_locals = inspect.currentframe().f_back.f_locals
+        # Print all local variable names for debugging
         for key in f_locals:
             print(key)
