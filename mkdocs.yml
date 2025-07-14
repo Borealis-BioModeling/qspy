@@ -2,6 +2,9 @@ site_name: QSPy
 
 theme:
   name: "material"
+  palette:
+    - primary: teal
+    - accent: amber
 
 plugins:
   - search # support for search bar
@@ -14,6 +17,7 @@ plugins:
 
 markdown_extensions:
   - attr_list
+  - md_in_html
   # emoji rendering using emoji shortcodes
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
@@ -28,6 +32,12 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
+  # Tabbed content
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Admonitions    
+  - admonition
+  - pymdownx.details
 
 # math rendering using Mathjax
 extra_javascript:
@@ -38,21 +48,27 @@ extra_javascript:
 nav:
   - Home: index.md
   - User Guide:
+    - Getting Started: getting-started.md
     - Model Components: model-components.md
     - Model Specification: model-specification.md 
     - Functional Tags: functional-tags.md
     - Model Checker: model-checker.md
     - Metadata Tracking: metadata-tracking.md
+    - Model Diagram Generator: model-diagram-generator.md
     - Model Summary Generator: model-summary-generator.md
     - How-To Guides: how-to-guides.md
     - Tutorials: tutorials.md
     - API Reference: reference.md
   - About:
+    - About QSPy: about-qspy.md
     - License: license.md
-    - Contributing: contributing.md
     - Citing: citing.md
-    - Supporting: supporting.md
     - Source Code: https://github.com/Borealis-BioModeling/qspy
+  - Community:
+      - Contributing: contributing.md
+      - Supporting: supporting.md
+      - QSPy Gitter: https://matrix.to/#/#qspy:gitter.im
+      - QSPy Discussions: https://github.com/Borealis-BioModeling/qspy/discussions 
   - Resources:
       - What is QSP Modeling: qsp-modeling.md
       - Related Software: related-software.md

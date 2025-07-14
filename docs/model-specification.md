@@ -96,54 +96,58 @@ ModelMetadataTracker(__version__, author=__author__)
 ModelChecker()
 ```
 
+------
+
 ## Full example model
 
-```python
-from qspy import *
+!!! example
 
-with parameters():
-    # drug dose
-    drug_dose = (100.0, "mg")
-    # Compartment volumes
-    V_CENTRAL = (10.0, "L")
-    V_PERIPHERAL = (1.0, "L")
-    # drug distribution rate constants
-    k_CP = (1e-1, "1/s")
-    k_PC = (1e-3, "1/s")
-    # receptor density
-    receptor_0 = (100.0, "ug/L")
-    # receptor binding rate constants
-    k_f = (1.0, "L/(ug * s)")
-    k_r = (1e-3, "1/s")
+    ```python
+    from qspy import *
 
-with expressions():
-    # Initial drug concentration - bolus dose
-    drug_0 = drug_dose / V_CENTRAL
+    with parameters():
+        # drug dose
+        drug_dose = (100.0, "mg")
+        # Compartment volumes
+        V_CENTRAL = (10.0, "L")
+        V_PERIPHERAL = (1.0, "L")
+        # drug distribution rate constants
+        k_CP = (1e-1, "1/s")
+        k_PC = (1e-3, "1/s")
+        # receptor density
+        receptor_0 = (100.0, "ug/L")
+        # receptor binding rate constants
+        k_f = (1.0, "L/(ug * s)")
+        k_r = (1e-3, "1/s")
 
-with compartments():
-    CENTRAL = V_CENTRAL
-    PERIPHERAL = V_PERIPHERAL
+    with expressions():
+        # Initial drug concentration - bolus dose
+        drug_0 = drug_dose / V_CENTRAL
 
-with monomers():
-    drug = (['b'], None, DRUG.AGONIST)
-    receptor = (['b'], None, PROTEIN.RECEPTOR)
+    with compartments():
+        CENTRAL = V_CENTRAL
+        PERIPHERAL = V_PERIPHERAL
 
-with initials():
-    drug(b=None)**CENTRAL << drug_0
-    receptor(b=None)**PERIPHERAL << receptor_0
+    with monomers():
+        drug = (['b'], None, DRUG.AGONIST)
+        receptor = (['b'], None, PROTEIN.RECEPTOR)
 
-with rules():
-    # Distribution
-    drug_distribution = (drug(b=None)**CENTRAL | drug(b=None)**PERIPHERAL, k_CP, k_PC)
-    # Receptor binding
-    receptor_binding = (drug(b=None)**PERIPHERAL + receptor(b=None)**PERIPHERAL | drug(b=1)**PERIPHERAL % receptor(b=1)**PERIPHERAL, k_f, k_r)
+    with initials():
+        drug(b=None)**CENTRAL << drug_0
+        receptor(b=None)**PERIPHERAL << receptor_0
 
-with observables():
-    drug(b=1)**PERIPHERAL % receptor(b=1)**PERIPHERAL > "OccupiedReceptor"
+    with rules():
+        # Distribution
+        drug_distribution = (drug(b=None)**CENTRAL | drug(b=None)**PERIPHERAL, k_CP, k_PC)
+        # Receptor binding
+        receptor_binding = (drug(b=None)**PERIPHERAL + receptor(b=None)**PERIPHERAL | drug(b=1)**PERIPHERAL % receptor(b=1)**PERIPHERAL, k_f, k_r)
 
-__version__ = 0.1.0
-__author__ = "Jane Doe"
-ModelMetadataTracker(__version__, author=__author__)
+    with observables():
+        drug(b=1)**PERIPHERAL % receptor(b=1)**PERIPHERAL > "OccupiedReceptor"
 
-ModelChecker()
-```
+    __version__ = 0.1.0
+    __author__ = "Jane Doe"
+    ModelMetadataTracker(__version__, author=__author__)
+
+    ModelChecker()
+    ```
