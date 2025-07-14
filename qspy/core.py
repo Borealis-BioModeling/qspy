@@ -125,7 +125,7 @@ class Model(Model):
             return {}
 
     @log_event(log_args=True)
-    def summarize(self, path=SUMMARY_DIR, include_diagram=True):
+    def markdown_summary(self, path=SUMMARY_DIR, include_diagram=True):
         """
         Generate a Markdown summary of the model and optionally a diagram.
 
@@ -159,7 +159,7 @@ class Model(Model):
             lines.append(f"{diagram_md}\n")
 
         # Component counts table
-        lines.append("## Model Component Counts\n| Component Type | Count |")
+        lines.append("## Numbers of Model Component\n| Component Type | Count |")
         lines.append("|---------------|-------|")
         lines += [
             f"| Monomers | {len(getattr(self, 'monomers', []))} |",

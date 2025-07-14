@@ -2,11 +2,9 @@
 
 ## From PySB to QSPy: Building with Context
 
-At its core, QSPy builds on [PySB](https://pysb.org/), a Python-embedded domain specific language (DSL) for rule-based modeling. PySB defines models through components such as **Monomers**, **Parameters**, **Rules**, **Initials**, and **Observables**, which together specify the structure and dynamics of a biological system.
+At its core, QSPy builds on [PySB (Python Systems Biology modeling)](https://pysb.org/), a Python-embedded domain specific language (DSL) for rule-based modeling of biochemical systems. PySB models are constructed from core components such as **Monomers**, **Parameters**, **Rules**, **Initials**, and **Observables**. It adopts an object-oriented approach to model building, enhanced with syntactic sugar for automatic component registration (self-exporting) and a chemistry-inspired rule syntax based on [BNGL (BioNetGen Language)](https://bionetgen.org/). QSPy preserves this foundational API while introducing an alternative, structured, context-based approach to model definition. 
 
-QSPy preserves this foundational API while introducing a structured, context-based approach to model definition.
-
-Instead of just writing all components imperatively at the module level, QSPy allows grouping them into **named contexts** using Python `with` blocks:
+Instead of directly initializing instances of component classes, QSPy allows grouping them into **named contexts** using Python `with` blocks:
 
 ```python
 with monomers():
@@ -14,11 +12,17 @@ with monomers():
     Receptor = (["l"], None, PROTEIN.RECEPTOR)
 ```
 
-This organizational style mimics classic declarative DSLs like BioNetGen and rxode2, promoting:
+Where applicable, QSPy then parses the inputs into the desired model components during the context exit process. As in PySB, the component names are exported into the current namespace, and the components can be programmatically manipulated:
+```python
+with monomers():
+    Ligand = (["r"], None, PROTEIN.LIGAND)
+    Receptor = (["l"], None, PROTEIN.RECEPTOR)
 
-  - Leaner model encoding, especially when definining large numbers of components
-  - Enhanced readability
-  - Semantic grouping of components
+print(Ligand)
+```
+    >>> Monomer("Ligand", ['r']) @ protein::ligand
+
+This organizational style mimics the block-based structure of classic declarative DSLs, such as [BNGL](https://bionetgen.org/) and [rxode2](https://nlmixr2.github.io/rxode2/) model specificaitons, while preserving the flexibility of a programmatic Python environment. The goal is to further streamline model encoding and improve readability by minimizing boilerplate and promoting semantic grouping of related model components.
 
 The sections that follow describe each model component and how QSPy extends their definition.
 
@@ -62,6 +66,8 @@ Monomer("Receptor", ['l']) @ PROTEIN.RECEPTOR
 ```
 
 Assigning a functional tag inside the `monomers` context is optional, so the following pattern is also valid:
+
+```python
 with monomers():
     Ligand = (["r"], None)
     Receptor = (["l"], None)
@@ -69,7 +75,7 @@ with monomers():
 
 **QSPy enhancements:**
 
-- Functional tagging (e.g., PROTEIN.RECEPTOR, DRUG.INHIBITOR), including new `@` operator for functional tag assignments.
+- Functional tagging (e.g., PROTEIN.RECEPTOR, DRUG.INHIBITOR), including new overloaded `@` operator for functional tag assignments.
 - Contextual grouping with automatic introspection for monomer creation and naming (when using `monomers` context).
 
 ## Parameters
@@ -150,7 +156,7 @@ Initial(Ligand(r=None), Ligand_0)
 **QSPy enhancements:**
 
 - Optional grouped `initials` context for clearer organization
-- New `<<` operator for initial condition assignment without the need to explicitly initialize an `Initial` object.
+- New overloaded `<<` operator for initial condition assignment without the need to explicitly initialize an `Initial` object.
 
 ## Observables
 
@@ -166,7 +172,7 @@ OR with automatic name assignment using the `~` prefix operator:
 with observables():
     ~Ligand(r=1) % Receptor(l=1)
 ```
-Context-free equivalent with `<` operator:
+Context-free equivalent with `>` operator:
 ```python
 Ligand(r=1) % Receptor(l=1) > "BoundComplex"
 ```
@@ -182,8 +188,8 @@ Observable("BoundComplex", Ligand(r=1) % Receptor(l=1))
 **QSPy enhancements:**
 
 - Optional grouped `observables` context for clearer organization
-- New `>` operator for observable assignment without the need to explicitly initialize an `Observable` object.
-- New `~` operator for observable assignment with an auto-generated name, and without the need to explicitly initialize an `Observable` object.
+- New overloaded `>` operator for observable assignment without the need to explicitly initialize an `Observable` object.
+- New overloaded `~` operator for observable assignment with an auto-generated name, and without the need to explicitly initialize an `Observable` object.
 
 ## Expressions
 

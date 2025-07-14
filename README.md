@@ -4,7 +4,7 @@ QSPy ('Cue Ess Pie') is a Python-based framework for the programmatic constructi
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 ![Python version badge](https://img.shields.io/badge/python-3.11.9-blue.svg)
-[![PySB version badge](https://img.shields.io/badge/PySB->%3D1.15.0-9cf.svg)](https://pysb.org/)
+[![PySB version badge](https://img.shields.io/badge/powered_by-PySB>%3D1.15.0-9cf.svg)](https://pysb.org/)
 [![license](https://img.shields.io/github/license/Borealis-BioModeling/qspy.svg)](LICENSE)
 [![release](https://img.shields.io/github/release-pre/Borealis-BioModeling/qspy.svg)](https://github.com/Borealis-BioModeling/qspy/releases)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -137,10 +137,10 @@ with observables():
 ModelMetadataTracker(version="1.0.0", author="Alice", export_toml=True)
 
 # Run model validation checks
-Model
+ModelChecker()
 
-# Generate a Markdown summary
-model.summarize()
+# Generate a Markdown summary of the model
+model.markdown_summary()
                
 ```
 
@@ -180,6 +180,6 @@ Special thanks for [Martin Breuss's MkDocs tuorial](https://realpython.com/pytho
 
 **AI Acknowledgement**
 
-Generative AI tools, including ChatGPT, Microsoft Copilot, and GitHub Copilot, were used to brainstorm features and implementation details, draft initial code snippets and boilerplate, and support documentation through outlining, editing, and docstring generation.
+This package was developed with AI assistance. This inlcudes the generative AI tools ChatGPT, Microsoft Copilot, and GitHub Copilot, which were used to brainstorm features and implementation details, draft initial code snippets and boilerplate, and support documentation through outlining, editing, and docstring generation.
 
 -----
