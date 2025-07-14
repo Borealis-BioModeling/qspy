@@ -112,7 +112,7 @@ class ModelMermaidDiagrammer:
                 # e.g., "molec_a() ** CENTRAL % molec_b() ** TUMOR"
                 # becomes "molec_a() % molec_b()"
                 parts = label.split("-")
-                return parts[0].split("** ")[0] + "::" + parts[1].split("** ")[0]
+                return parts[0].split("** ")[0] + ":" + parts[1].split("** ")[0]
             else:
                 # Remove compartment info
                 # e.g., "molec_a() ** CENTRAL" -> "molec_a()"
