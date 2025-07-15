@@ -28,6 +28,10 @@
     options:
       show_root_heading: true
 
+::: qspy.utils.diagrams
+    options:
+      show_root_heading: true
+
 ::: qspy.utils.logging
     options:
       show_root_heading: true

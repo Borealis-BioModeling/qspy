@@ -19,6 +19,8 @@ Contributions are welcomed! If you’d like to improve `qspy`, see the [Contribu
 
 Developed a model using `qspy`? Feel free to share it with us in [this GitHub Discussion](https://github.com/Borealis-BioModeling/qspy/discussions/2)! 
 
-## Acknowledgments
+## Code of Conduct
 
-We appreciate every contributor’s efforts, as well as the feedback of our users! 
+All contributions will be considered based solely on their quality and fit with the overall direction of the project.   
+
+All contributors are expected to be kind and respectful to one another. Behavior that is harmful to your fellow contributors is not acceptable.
