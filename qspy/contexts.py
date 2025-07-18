@@ -65,6 +65,7 @@ __all__ = [
     "rules",
     "initials",
     "observables",
+    "macros",
     # "pk_macros",
     # "units",
 ]
@@ -531,7 +532,9 @@ def initials():
         added = initials_after - initials_before
         if added:
             # Log the names of newly added initials
-            added_initials = [init for init in model.initials if str(init.pattern) in added]
+            added_initials = [
+                init for init in model.initials if str(init.pattern) in added
+            ]
             logger.info(f"[QSPy] Initials added in context: {added_initials}")
         else:
             logger.info("[QSPy] No new initials added")
@@ -570,6 +573,41 @@ def observables():
             logger.info(f"[QSPy] Observables added in context: {added_observables}")
         else:
             logger.info("[QSPy] No new observables added")
+
+
+@contextmanager
+def macros():
+    """
+    Context manager for managing macros in a QSPy model.
+
+    Yields
+    ------
+    None
+    """
+    import logging
+    from pysb.core import SelfExporter
+    from qspy.config import LOGGER_NAME
+    from qspy.utils.logging import ensure_qspy_logging
+
+    ensure_qspy_logging()
+    logger = logging.getLogger(LOGGER_NAME)
+    model = SelfExporter.default_model
+
+    componenents_before = set(model.components.keys())
+
+    logger.info("[QSPy] Entering macros context manager")
+    try:
+        yield
+    finally:
+        components_after = set(model.components.keys())
+        added = components_after - componenents_before
+        if added:
+            # Log the names of newly added components
+            added_components = [comp for comp in model.components if comp.name in added]
+            logger.info(f"[QSPy] Components added in context: {added_components}")
+        else:
+            logger.info("[QSPy] No new components added")
+    return
 
 
 class pk_macros:

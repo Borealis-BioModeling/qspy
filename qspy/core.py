@@ -534,3 +534,59 @@ class Monomer(Monomer):
         else:
             base_repr = super().__repr__()
             return f"{base_repr} @ {self.functional_tag.value}"
+    
+    def __pow__(self, compartment: Compartment):
+        """
+        Overload the '**' operator to allow monomers to be passed with a compartment.
+
+        This is useful for creating monomer patterns within specific compartments.
+
+        Parameters
+        ----------
+        compartment : Compartment
+            The compartment in which the monomer pattern resides.
+
+        Returns
+        -------
+        MonomerPattern
+            A MonomerPattern from calling the monomer with the compartment.
+        """
+        if not isinstance(compartment, Compartment):
+            raise TypeError("Compartment must be an instance of Compartment")
+        return self() ** compartment
+    
+# class Compartment(Compartment):
+#     """
+#     QSPy extension of the PySB Compartment class.
+
+#     This class allows for the creation of compartments with specific names and sizes.
+#     It can be used to define compartments in a QSPy model.
+
+#     Parameters
+#     ----------
+#     name : str
+#         Name of the compartment.
+#     size : float or Parameter, optional
+#         Size of the compartment (default is 1.0).
+#     """
+    
+#     def __init__(self, name: str, size: float | Parameter = 1.0):
+#         super().__init__(name, size)
+    
+#     def __contains__(self, other: MonomerPattern | ComplexPattern | Monomer):
+#         """
+#         Check if a monomer pattern or complex pattern is contained within this compartment.
+
+#         Parameters
+#         ----------
+#         other : MonomerPattern or ComplexPattern
+#             The pattern to check for containment.
+
+#         Returns
+#         -------
+#         bool
+#             True if the pattern is contained in this compartment, False otherwise.
+#         """
+#         if not isinstance(other, (MonomerPattern, ComplexPattern)):
+#             raise TypeError("Other must be a MonomerPattern, ComplexPattern, or Monomer")
+#         return other ** self
