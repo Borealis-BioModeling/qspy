@@ -14,8 +14,8 @@ _**QSPy**: Quantitative Systems Pharmacology in Python_
 
 ------
 
-[Getting Started](./getting-started.md){ .md-button .md-button--primary } [How-To Guides](./how-to-guides.md){ .md-button .md-button--primary } [About QSPy](./about-qspy.md){ .md-button .md-button--primary } 
+[ Getting Started ](./getting-started.md){ .md-button .md-button--primary } [How-To Guides](./how-to-guides.md){ .md-button .md-button--primary } [About QSPy](./about-qspy.md){ .md-button .md-button--primary } 
 
-[API Documentation](./reference.md){ .md-button .md-button--primary } [Need Help?](./contact-support.md){ .md-button .md-button--primary } [Contributing](./contributing.md){ .md-button .md-button--primary }
+[API Documentation](./reference.md){ .md-button .md-button--primary } [  Need Help?  ](./contact-support.md){ .md-button .md-button--primary } [Contributing](./contributing.md){ .md-button .md-button--primary }
 
 ------

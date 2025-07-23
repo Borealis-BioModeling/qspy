@@ -240,8 +240,43 @@ Expressions define algebraic relationships between parameters, observables, or o
 !!! info "QSPy enhancements"
     - Contextual grouping with automatic introspection for compartment creation and naming (when using `compartments` context).
 
-## See Also
+## Macros
 
-- [Model Specification](model-summary-generator.md)
-- [Functional Tags](function-tags.md)
-- [PySB Tutorial](https://pysb.readthedocs.io/en/stable/tutorial.html)
+Macros in QSPy provide high-level, reusable templates for common biochemical processes such as binding, catalysis, synthesis, degradation, and more. They encapsulate complex rule patterns into a single, expressive statement, improving both readability and maintainability of your model code.
+
+### Background: PySB Macros
+
+[PySB macros](https://pysb.readthedocs.io/en/stable/tutorial.html#using-provided-macros) are functions that generate sets of rules and components for common biochemical motifs (e.g., reversible binding, catalysis, synthesis, degradation). They are a foundational feature of PySB, enabling concise and readable model code for complex biological processes.
+
+QSPy builds on this foundation by:
+
+- **Incorporating all core PySB macros** (`pysb.macros`) as `qspy.macros.core` (these include functions like `bind`, `equilibrate`, `catalyze`, etc.)
+- **Including the PK/PD macros** from [`pysb-pkpd`](https://blakeaw.github.io/pysb-pkpd/macros/) (`pysb.pkpd.macros`) as `qspy.macros.pkpd` (these include PK processes such as `distribute` and `eliminate`, PD functions like `emax`, and `sigmoidal_emax`, and dosing functions like `dose_bolus`)
+- **Adding native support for units** to both sets of macros, so all rate and concentration parameters can be specified with units and are automatically converted and checked
+
+This means you can use all standard PySB macro patterns in QSPy, but with enhanced unit handling and integration with QSPy’s context and logging system.
+
+### QSPy Macro Contexts
+
+You can use macros directly or within the `macros` context for grouped, introspective macro registration. When using the `macros` context, all macro-generated components are automatically logged to the QSPy logs for auditability and reproducibility.
+
+=== "With `macros` context:"
+    ```python
+    with macros():
+        bind(Ligand(r=None), Receptor(l=None), 'r', 'l', [kf_bind, kr_bind])
+        degrade(Protein(), k_deg)
+    ```
+=== "Context-free equivalent:"
+    ```python
+    bind(Ligand(r=None), Receptor(l=None), 'r', 'l', [kf_bind, kr_bind])
+    degrade(Protein(), k_deg)
+    ```
+
+!!! info "QSPy enhancements"
+    - All macros are updated to use unit-aware model components.
+    - Contextual grouping with automatic introspection and logging when using the `macros` context.
+    - Full access to both core PySB macros and PK/PD macros from `pysb-pkpd`.
+
+Macros can greatly simplify the specification of complex reaction patterns, especially when used in combination with QSPy’s context system.
+
+For more details on available macros, see the [PySB macro documentation](https://pysb.readthedocs.io/en/stable/tutorial.html#using-provided-macros) and the [pysb-pkpd macro documentation](https://blakeaw.github.io/pysb-pkpd/macros/).

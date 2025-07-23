@@ -9,29 +9,34 @@
   * [PySB](https://pysb.org/)
   * [pysb-pkpd](https://blakeaw.github.io/pysb-pkpd/)
   * [pysb-units](https://github.com/Borealis-BioModeling/pysb-units)
-  * [pysb-fit](https://github.com/Borealis-BioModeling/pysb-fit)
   * [microbench](https://github.com/alubbock/microbench)
 
 ### Installation steps
 
   1. Install **PySB** using [conda](https://docs.conda.io/en/latest/) or [mamba](https://github.com/mamba-org/mamba):
-    ```sh
-    conda install -c alubbock pysb
-    ```
-    **OR**
-    ```sh
-    mamba install -c alubbock pysb
-    ```    
+
+```sh
+conda install -c alubbock pysb
+```
+
+**OR**
+
+```sh
+mamba install -c alubbock pysb
+```    
+
   2. Install **pysb-pkpd** with pip:
-    ```sh
-    pip install pysb-pkpd
-    ```
+
+```sh
+pip install pysb-pkpd
+```
+
 Ensure you have Python 3.11.3+ and PySB 1.15.0+ installed.
 
 ## Quick-start Example
 
 ```python
-from qspy import Model, parameters, monomers, rules, initials, observables
+from qspy import *
 from qspy.functionaltags import PROTEIN, DRUG
 from qspy.validation import ModelMetadataTracker, ModelChecker
 

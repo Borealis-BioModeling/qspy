@@ -56,6 +56,7 @@ nav:
     - Metadata Tracking: metadata-tracking.md
     - Model Diagram Generator: model-diagram-generator.md
     - Model Summary Generator: model-summary-generator.md
+    - Experimental Features: experimental.md
     - How-To Guides: how-to-guides.md
     - Tutorials: tutorials.md
     - API Reference: reference.md
@@ -72,4 +73,7 @@ nav:
   - Resources:
       - What is QSP Modeling: qsp-modeling.md
       - Related Software: related-software.md
+      - PySB Home: https://pysb.org/
+      - PySB Documentation: https://pysb.readthedocs.io/en/stable/
+      - PySB GitHub: https://github.com/pysb/pysb
   - Contact/Support: contact-support.md
