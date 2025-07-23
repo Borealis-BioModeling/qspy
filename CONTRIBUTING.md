@@ -4,7 +4,7 @@ Thank you for contributing! Bug reports, feature requests, bug fixes or other co
 
 ## Coding conventions
 
-GitHub is used to host code, track issues, and accept pull requests. This project uses [semantic versioning](https://semver.org/) and keeps a [CHANGELOG](./CHANGELOG.md). Google style docstrings are used, and [Black formatting](https://black.readthedocs.io/en/stable/) is applied to code. For new functions, it is requested that type annotations be included in the function definition.    
+GitHub is used to host code, track issues, and accept pull requests. This project uses [semantic versioning](https://semver.org/) and keeps a [CHANGELOG](./CHANGELOG.md). Google style docstrings are used, and [Ruff formatting](https://docs.astral.sh/ruff/formatter/) is applied to code. For new functions, it is requested that type annotations be included in the function definition.    
 
 
 # How to contribute
