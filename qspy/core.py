@@ -539,7 +539,9 @@ class Monomer(Monomer):
         """
         Overload the '**' operator to allow monomers to be passed with a compartment.
 
-        This is useful for creating monomer patterns within specific compartments.
+        This is a shortcut for creating a MonomerPattern with a compartment:
+          i.e., `monomer ** compartment` is equivalent to `monomer() ** compartment`.
+
 
         Parameters
         ----------
