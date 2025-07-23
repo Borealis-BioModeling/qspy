@@ -43,11 +43,11 @@ import sympy
 import pysb
 from pysb.units.core import check as units_check
 
-from qspy.base import ComponentContext
+from qspy.contexts.base import ComponentContext
 from qspy.core import Monomer, Parameter, Expression, Rule, Compartment
 from qspy.config import LOGGER_NAME
 from qspy.utils.logging import log_event
-from qspy.base import SKIP_TYPES
+from qspy.contexts.base import SKIP_TYPES
 
 # from pysb.units import add_macro_units
 # from pysb.pkpd import macros as pkpd
@@ -608,51 +608,3 @@ def macros():
         else:
             logger.info("[QSPy] No new components added")
     return
-
-
-class pk_macros:
-    """
-    Context manager stub for PK macros (pharmacokinetic macros).
-
-    This is a placeholder for future PK macro context management.
-    """
-
-    def __enter__(self):
-        """
-        Enter the PK macros context.
-
-        Returns
-        -------
-        pk_macros
-            The context manager instance.
-        """
-
-        def noop(*args):
-            pass
-
-        # Assign a placeholder method for PK macro operations
-        self.eliminate = noop
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        """
-        Exit the PK macros context and perform cleanup.
-
-        Parameters
-        ----------
-        exc_type : type
-            Exception type, if any.
-        exc_val : Exception
-            Exception value, if any.
-        exc_tb : traceback
-            Traceback, if any.
-
-        Returns
-        -------
-        None
-        """
-        print("Exiting context: cleaning up special_function")
-        f_locals = inspect.currentframe().f_back.f_locals
-        # Print all local variable names for debugging
-        for key in f_locals:
-            print(key)
