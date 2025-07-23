@@ -1,9 +1,24 @@
+"""
+QSPy experimental infix macros for expressive model syntax.
+
+Provides infix-style macro objects for binding, elimination, and equilibrium interactions:
+- binds: infix macro for reversible binding reactions
+- eliminated: infix macro for elimination reactions
+- equilibrates: infix macro for reversible state transitions
+
+These macros enable expressive model code such as:
+    species *binds* target & (k_f, k_r)
+    species *eliminated* compartment & k_deg
+    state1 *equilibrates* state2 & (k_f, k_r)
+"""
+
 from abc import ABC, abstractmethod
 
 from qspy.core import Monomer, Parameter
 from pysb.core import MonomerPattern, ComplexPattern, Compartment, ComponentSet
 from pysb.macros import bind, equilibrate
 from pysb.pkpd.macros import eliminate
+
 
 class InfixMacro(ABC):
     """
