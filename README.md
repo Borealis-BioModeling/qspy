@@ -54,21 +54,23 @@ QSPy ('Cue Ess Pie') is a Python-based framework for the programmatic constructi
   * [PySB](https://pysb.org/)
   * [pysb-pkpd](https://blakeaw.github.io/pysb-pkpd/)
   * [pysb-units](https://github.com/Borealis-BioModeling/pysb-units)
-  * [microbench](https://github.com/alubbock/microbench)
+  * [Microbench](https://github.com/alubbock/microbench)
+  * [PyViPR](https://pyvipr.readthedocs.io/en/latest/)
+  * [MerGram](https://github.com/blakeaw/mergram)
 
 ## Installation
   1. Install **PySB** using [conda](https://docs.conda.io/en/latest/) or [mamba](https://github.com/mamba-org/mamba):
-    ```sh
-    conda install -c alubbock pysb
-    ```
-    **OR**
-    ```sh
-    mamba install -c alubbock pysb
-    ```    
-  2. Install **pysb-pkpd** with pip:
-    ```sh
-    pip install pysb-pkpd
-    ```
+  ```sh
+  conda install -c alubbock pysb
+  ```
+  **OR**
+  ```sh
+  mamba install -c alubbock pysb
+  ```    
+  2. Install **qspy** with pip:
+  ```sh
+  pip install cueesspie
+  ```
 
 ### Testing and Coverage
 

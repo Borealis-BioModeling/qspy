@@ -9,7 +9,9 @@
   * [PySB](https://pysb.org/)
   * [pysb-pkpd](https://blakeaw.github.io/pysb-pkpd/)
   * [pysb-units](https://github.com/Borealis-BioModeling/pysb-units)
-  * [microbench](https://github.com/alubbock/microbench)
+  * [Microbench](https://github.com/alubbock/microbench)
+  * [PyViPR](https://pyvipr.readthedocs.io/en/latest/)
+  * [MerGram](https://github.com/blakeaw/mergram)
 
 ### Installation steps
 
@@ -25,10 +27,10 @@ conda install -c alubbock pysb
 mamba install -c alubbock pysb
 ```    
 
-  2. Install **pysb-pkpd** with pip:
+  2. Install **qspy** with pip:
 
 ```sh
-pip install pysb-pkpd
+pip install cueesspie
 ```
 
 Ensure you have Python 3.11.3+ and PySB 1.15.0+ installed.

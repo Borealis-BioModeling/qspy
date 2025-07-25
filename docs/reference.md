@@ -8,11 +8,11 @@
     options:
       show_root_heading: true
 
-::: qspy.contexts
+::: qspy.contexts.contexts
     options:
       show_root_heading: true
 
-::: qspy.base
+::: qspy.contexts.base
     options:
       show_root_heading: true
 
