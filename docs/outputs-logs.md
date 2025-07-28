@@ -36,13 +36,13 @@ This folder is intended to be a central location for all QSPy-generated artifact
 
 By default, QSPy writes all outputs and logs to `.qspy` in the current working directory. You can change this location using the `qspy.config` module.
 
-**Example: Change the output directory**
-```python
-import qspy.config
+!!! example "Change the output directory"
+    ```python
+    import qspy.config
 
-# Set a new output directory for QSPy logs and artifacts
-qspy.config.set_output_dir("my_outputs/qspy_artifacts")
-```
+    # Set a new output directory for QSPy logs and artifacts
+    qspy.config.set_output_dir("my_outputs/qspy_artifacts")
+    ```
 
 This will update `qspy.config.OUTPUT_DIR`, and all new logs and outputs will be written to the specified folder.
 
