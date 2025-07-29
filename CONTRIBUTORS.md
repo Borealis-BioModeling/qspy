@@ -12,4 +12,4 @@ Thank you to everyone who has contributed to the success of this project!
 
 ## Special Thanks
 
-*   **PySB Developers and Contributors** - QSPy is built on top of PySB, so wouldn't be possible without the hard work of PySB developers and contributors!
+*   **PySB Developers and Contributors** - QSPy is built on top of [PySB](https://pysb.org/), so wouldn't be possible without the hard work of PySB developers and contributors!
