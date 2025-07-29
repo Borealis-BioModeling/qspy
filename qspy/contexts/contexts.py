@@ -199,7 +199,7 @@ class compartments(ComponentContext):
     component_name = "compartment"
 
     @staticmethod
-    def _validate_value(name, size):
+    def _validate_value(name, val):
         """
         Validate the size for a compartment.
 
@@ -207,29 +207,45 @@ class compartments(ComponentContext):
         ----------
         name : str
             Name of the compartment.
-        size : Parameter or Expression
-            Size of the compartment.
+        val : tuple | Parameter | Expression
+            Tuple of (size, dimensions) or Parameter/Expression for size.
 
         Returns
         -------
         tuple
-            (size,)
+            (size, dimensions)
 
         Raises
         ------
         ValueError
             If the size is not a Parameter or Expression.
         """
-        # Only allow Parameter or Expression for compartment size
-        if not isinstance(size, (Parameter, Expression)):
+        if not isinstance(val, (tuple, Parameter, Expression)):
             raise ValueError(
-                f"Compartment size for '{name}' must be a Parameter or constant expression"
+                f"Compartment '{name}' must be a tuple: (size, dimensions) or a Parameter/Expression for size"
             )
-        return (size,)
+        if isinstance(val, tuple):
+            if len(val) != 2:
+                raise ValueError(
+                    f"Compartment '{name}' tuple must be of the form (size, dimensions)"
+                )
+            size, dimensions = val
+            if not isinstance(size, (Parameter, Expression)):
+                raise ValueError(
+                    f"Compartment size for '{name}' must be a Parameter or Expression"
+                )
+            if not isinstance(dimensions, int):
+                raise ValueError(
+                    f"Compartment dimensions for '{name}' must be an integer"
+                )
+        else:
+            size = val
+            dimensions = 3  # Default to 3D if not specified
+        return (size, dimensions)
 
     @log_event(log_args=True, log_result=True, static_method=True)
     @staticmethod
-    def create_component(name, size):
+    def create_component(name, size, dimensions):
         """
         Create a compartment component.
 
@@ -245,7 +261,7 @@ class compartments(ComponentContext):
         Compartment
             The created compartment.
         """
-        compartment = Compartment(name, size=size)
+        compartment = Compartment(name, size=size, dimension=dimensions)
         return compartment
 
 

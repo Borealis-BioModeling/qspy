@@ -43,6 +43,8 @@ __all__ = [
     "Compartment",
     "Observable",
     "Initial",
+    "ANY",
+    "WILD",
     "parameters",
     "expressions",
     "compartments",

@@ -163,6 +163,9 @@ class ModelChecker:
                 used.add(ic.value.name)
         for expr in self.model.expressions:
             used.update(p.name for p in expr.expr.atoms(Parameter))
+        for compartment in self.model.compartments:
+            if isinstance(compartment.size, Parameter):
+                used.add(compartment.size.name)
 
         unused = [p.name for p in self.model.parameters if p.name not in used]
         if unused:
