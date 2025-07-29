@@ -1,0 +1,37 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: qspy
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Wilson
+    family-names: Blake
+    name-suffix: Ph.D.
+    email: blakeawilson.phd@gmail.com
+    orcid: 'https://orcid.org/0000-0002-8269-2500'
+repository-code: 'https://github.com/Borealis-BioModeling/qspy'
+abstract: >-
+  QSPy: Quantitative Systems Pharmacology Modeling in Python 
+license: BSD-2-Clause
+version: 0.1.0
+date-released: '2025-07-29'
+references:
+  - authors:
+      - family-names: Lopez
+        given-names: Carlos F.
+      - family-names: Muhlich
+        given-names: Jeremy L.
+      - family-names: Bachman
+        given-names: John A.
+      - family-names: Sorger
+        given-names: Peter K.  
+    doi: 10.1038/msb.2013.1
+    journal: "Molecular Systems Biology"
+    title: "Programming biological models in Python using PySB"
+    type: article
+    volume: 9
+    year: 2013
