@@ -1,0 +1,80 @@
+site_name: QSPy
+
+theme:
+  name: "material"
+  palette:
+    - primary: teal
+    - accent: amber
+
+plugins:
+  - search # support for search bar
+  - mkdocstrings: # mkdocstrings - needed for making docs entries from docstrings
+      handlers:
+          python:
+              options:
+                  docstring_style: numpy
+              paths: [.]  # search packages in the src folder
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  # emoji rendering using emoji shortcodes
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  # Syntax highlighting
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  # Tabbed content
+  - pymdownx.tabbed:
+      alternate_style: true
+  # Admonitions    
+  - admonition
+  - pymdownx.details
+
+# math rendering using Mathjax
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+
+nav:
+  - Home: index.md
+  - User Guide:
+    - Getting Started: getting-started.md
+    - Model Components: model-components.md
+    - Model Specification: model-specification.md 
+    - Functional Tags: functional-tags.md
+    - Model Checker: model-checker.md
+    - Metadata Tracking: metadata-tracking.md
+    - Model Diagram Generator: model-diagram-generator.md
+    - Model Summary Generator: model-summary-generator.md
+    - Outputs & Logs: outputs-logs.md
+    - Experimental Features: experimental.md
+    - How-To Guides: how-to-guides.md
+    - Tutorials: tutorials.md
+    - API Reference: reference.md
+  - About:
+    - About QSPy: about-qspy.md
+    - License: license.md
+    - Citing: citing.md
+    - Source Code: https://github.com/Borealis-BioModeling/qspy
+  - Community:
+      - Contributing: contributing.md
+      - Supporting: supporting.md
+      - QSPy Gitter: https://matrix.to/#/#qspy:gitter.im
+      - QSPy Discussions: https://github.com/Borealis-BioModeling/qspy/discussions 
+  - Resources:
+      - What is QSP Modeling: qsp-modeling.md
+      - Related Software: related-software.md
+      - PySB Home: https://pysb.org/
+      - PySB Documentation: https://pysb.readthedocs.io/en/stable/
+      - PySB GitHub: https://github.com/pysb/pysb
+  - Contact/Support: contact-support.md
