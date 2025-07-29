@@ -1,0 +1,1703 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../getting-started/">
+      
+      
+        <link rel="next" href="../model-specification/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Model Components - QSPy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#model-components" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="QSPy" class="md-header__button md-logo" aria-label="QSPy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            QSPy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Model Components
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="QSPy" class="md-nav__button md-logo" aria-label="QSPy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    QSPy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Model Components
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Components
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#from-pysb-to-qspy-building-with-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      From PySB to QSPy: Building with Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-model-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Model Object
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monomers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monomers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Conditions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Observables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compartments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compartments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Macros
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Macros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-pysb-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background: PySB Macros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qspy-macro-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      QSPy Macro Contexts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Specification
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functional-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functional Tags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-checker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Checker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metadata-tracking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadata Tracking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-diagram-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Diagram Generator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-summary-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Summary Generator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Outputs & Logs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Experimental Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How-To Guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about-qspy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About QSPy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Citing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Borealis-BioModeling/qspy" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Source Code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Community
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://matrix.to/#/#qspy:gitter.im" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QSPy Gitter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Borealis-BioModeling/qspy/discussions" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QSPy Discussions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qsp-modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is QSP Modeling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../related-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Related Software
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://pysb.org/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PySB Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://pysb.readthedocs.io/en/stable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PySB Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysb/pysb" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PySB GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contact-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contact/Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#from-pysb-to-qspy-building-with-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      From PySB to QSPy: Building with Context
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-model-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Model Object
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monomers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monomers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rules
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initial-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Conditions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Observables
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compartments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compartments
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Macros
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Macros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#background-pysb-macros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background: PySB Macros
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qspy-macro-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      QSPy Macro Contexts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="model-components">Model Components</h1>
+<h2 id="from-pysb-to-qspy-building-with-context">From PySB to QSPy: Building with Context</h2>
+<p>At its core, QSPy builds on <a href="https://pysb.org/">PySB (Python Systems Biology modeling)</a>, a Python-embedded domain specific language (DSL) for rule-based modeling of biochemical systems. PySB models are constructed from core components such as <strong>Monomers</strong>, <strong>Parameters</strong>, <strong>Rules</strong>, <strong>Initials</strong>, and <strong>Observables</strong>. It adopts an object-oriented approach to model building, enhanced with syntactic sugar for automatic component registration (self-exporting) and a chemistry-inspired rule syntax based on <a href="https://bionetgen.org/">BNGL (BioNetGen Language)</a>. QSPy preserves this foundational API while introducing an alternative, structured, context-based approach to model definition. </p>
+<p>Instead of directly initializing instances of component classes, QSPy allows grouping them into <strong>named contexts</strong> using Python <code>with</code> blocks.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">with</span> <span class="n">monomers</span><span class="p">():</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">Ligand</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;r&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">PROTEIN</span><span class="o">.</span><span class="n">LIGAND</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">Receptor</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;l&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">PROTEIN</span><span class="o">.</span><span class="n">RECEPTOR</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<p>Where applicable, QSPy then parses the inputs into the desired model components during the context exit process. As in PySB, the component names are exported into the current namespace, and the components can be programmatically manipulated.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">Ligand</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code>&gt;&gt;&gt; Monomer(&quot;Ligand&quot;, [&#39;r&#39;]) @ protein::ligand
+</code></pre></div>
+</div>
+<p>This organizational style mimics the block-based structure of classic declarative DSLs, such as <a href="https://bionetgen.org/">BNGL</a> and <a href="https://nlmixr2.github.io/rxode2/">rxode2</a> model specificaitons, while preserving the flexibility of a programmatic Python environment. The goal is to further streamline model encoding and improve readability by minimizing boilerplate and promoting semantic grouping of related model components. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>QSPy contexts also incorporate logging functionality to help users track component additions and audit model assembly for reproducibility.</p>
+</div>
+<p>The sections that follow describe each model component and how QSPy extends their definition.</p>
+<h2 id="the-model-object">The Model Object</h2>
+<p>Every QSPy model builds upon a central <code>Model</code> object that serves as the container for all biological components, relationships, and metadata. This object is an extension of the standard PySB <code>Model</code> object, with additional hooks for logging, metadata tracking, and QSPy’s context-aware construction pattern, as well as additional utilities for setting global model units and outputting model summaries to <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> files.</p>
+<p>As with PySB, a new <code>Model</code> is typically specified in Python module file (e.g., <code>model.py</code>). When you define a <code>Model</code> in QSPy, a global <code>model</code> object is automatically available like in PySB. All subsequent context blocks, such as <code>with monomers()</code> or with <code>parameters()</code>, register their components to this object. Also, as in PySB, any model components created using their class-based objects, such as <code>Parameter(...)</code> or <code>Rule(...)</code>, are also automatically registered to the model object.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Model</span><span class="p">()</span><span class="o">.</span><span class="n">with_units</span><span class="p">(</span><span class="n">concentration</span><span class="o">=</span><span class="s2">&quot;mg/L&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">volume</span><span class="o">=</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>As above, we recommend always chaining <code>Model</code> initialization with the <code>with_units</code> function to set global model units for concentration, time, and volume; all subsequent parameter definitions with these unit types will be automatically converted and appropriately scaled behind the scenes during model import.</p>
+<p>After model specification (e.g., in <code>my_model.py</code>), the <code>model</code> object can imported and used accordingly.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">my_model</span> <span class="kn">import</span> <span class="n">model</span>
+</span></code></pre></div>
+<h2 id="monomers">Monomers</h2>
+<p><code>Monomer</code>s represent fundamental molecular and biological species, such as drugs, proteins, or receptors. They have <em>sites</em> and <em>site states</em>, and can also be assigned a <a href="../functional-tags/">functional tag</a>. <em>Sites</em> may represent binding regions or other modifiable molecular features, such as phosphorylation sites with distinct states (e.g., unphosphorylated <code>'u'</code> and phosphorylated <code>'p'</code>). </p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">With <code>monomers</code> context:</label><label for="__tabbed_1_2">Context-free equivalent</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">with</span> <span class="n">monomers</span><span class="p">():</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">Ligand</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;r&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">DRUG</span><span class="o">.</span><span class="n">INHIBITOR</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">Receptor</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;l&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">PROTEIN</span><span class="o">.</span><span class="n">RECEPTOR</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Monomer</span><span class="p">(</span><span class="s2">&quot;Ligand&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">])</span> <span class="o">@</span> <span class="n">DRUG</span><span class="o">.</span><span class="n">INHIBITOR</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">Monomer</span><span class="p">(</span><span class="s2">&quot;Receptor&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;l&#39;</span><span class="p">])</span> <span class="o">@</span> <span class="n">PROTEIN</span><span class="o">.</span><span class="n">RECEPTOR</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Inside the <code>monomers</code> context the assignment pattern is:</p>
+<div class="language-text highlight"><pre><span></span><code>monomer_name = (sites_list, site_states_dict, functional_tag)
+</code></pre></div>
+<p>Also, assigning a functional tag inside the <code>monomers</code> context is optional, so the following pattern is also valid:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">with</span> <span class="n">monomers</span><span class="p">():</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">Ligand</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;r&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">Receptor</span> <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;l&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>Functional tagging (e.g., <code>PROTEIN.RECEPTOR</code>, <code>DRUG.INHIBITOR</code>), including new overloaded <code>@</code> operator for functional tag assignments.</li>
+<li>Contextual grouping with automatic introspection for monomer creation and naming (when using <code>monomers</code> context).</li>
+</ul>
+</div>
+<h2 id="parameters">Parameters</h2>
+<p><code>Parameter</code>s quantify rate constants, concentrations, or other numeric values.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">With <code>parameters</code> context:</label><label for="__tabbed_2_2">Context-free equivalent:</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">with</span> <span class="n">parameters</span><span class="p">():</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">kf_bind</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1e-1</span><span class="p">,</span> <span class="s2">&quot;1/uM/s&quot;</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">kr_bind</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1e-3</span><span class="p">,</span> <span class="s2">&quot;1/s&quot;</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">Ligand_0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;nM&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;kf_bind&quot;</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;1/uM/s&quot;</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;kr_bind&quot;</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;1/s&quot;</span><span class="p">)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;Ligand_0&quot;</span> <span class="mi">100</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;nM&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>inside the <code>parameters</code> context the assignment pattern is:</p>
+<div class="language-text highlight"><pre><span></span><code>parameter_name = (value, units)
+</code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>Native support for units (e.g., mg, nM, hr⁻¹, L/min)</li>
+<li>Contextual grouping with automatic introspection for parameter creation and naming (when using <code>parameters</code> context).</li>
+</ul>
+</div>
+<h2 id="rules">Rules</h2>
+<p><code>Rules</code> define biochemical interactions such as binding or transformation.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">With <code>rules</code> context:</label><label for="__tabbed_3_2">Context-free equivalent:</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">with</span> <span class="n">rules</span><span class="p">():</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">bind_L_R</span> <span class="o">=</span> <span class="p">(</span><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> 
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="o">&gt;&gt;</span> <span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">kf_bind</span><span class="p">,</span> <span class="n">kr_bind</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Rule</span><span class="p">(</span><span class="s2">&quot;bind_L_R&quot;</span><span class="p">,</span> <span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> \
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="o">&gt;&gt;</span> <span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">kf_bind</span><span class="p">,</span> <span class="n">kr_bind</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>inside the <code>rules</code> context the assignment pattern is:</p>
+<p><img alt="↔" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/2194.svg" title=":left_right_arrow:" /> reversible reactions:</p>
+<div class="language-text highlight"><pre><span></span><code>rule_name = (reaction pattern, forward rate consant, reverse rate constant)
+</code></pre></div>
+<p><img alt="➡" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/27a1.svg" title=":arrow_right:" /> irreversible reactions:</p>
+<div class="language-text highlight"><pre><span></span><code>rule_name = (reaction pattern, rate constant)
+</code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>Contextual grouping with automatic introspection for rule creation and naming (when using <code>rules</code> context).</li>
+</ul>
+</div>
+<h2 id="initial-conditions">Initial Conditions</h2>
+<p><code>Initial</code>s specify the starting concentrations or states of species in the model.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">With <code>initials</code> context:</label><label for="__tabbed_4_2">Context-free equivalent:</label><label for="__tabbed_4_3">Context-free without the <code>&lt;&lt;</code> operator:</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">with</span> <span class="n">initials</span><span class="p">():</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">Ligand_0</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">Ligand_0</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">Initial</span><span class="p">(</span><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Ligand_0</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>Optional grouped <code>initials</code> context for clearer organization and additional logging</li>
+<li>New overloaded <code>&lt;&lt;</code> operator for initial condition assignment without the need to explicitly initialize an <code>Initial</code> object.</li>
+</ul>
+</div>
+<h2 id="observables">Observables</h2>
+<p><code>Observable</code>s define measurable quantities derived from model states.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:5"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><input id="__tabbed_5_4" name="__tabbed_5" type="radio" /><input id="__tabbed_5_5" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">With <code>observables</code> context:</label><label for="__tabbed_5_2">auto naming using <code>~</code> prefix operator:</label><label for="__tabbed_5_3">Context-free equivalent with <code>&gt;</code> operator:</label><label for="__tabbed_5_4">Context-free equivalent with <code>~</code> operator:</label><label for="__tabbed_5_5">Context-free without the <code>&gt;</code> or <code>~</code> operators:</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">with</span> <span class="n">observables</span><span class="p">():</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="s2">&quot;BoundComplex&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">with</span> <span class="n">observables</span><span class="p">():</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    <span class="o">~</span><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="s2">&quot;BoundComplex&quot;</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="o">~</span><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">Observable</span><span class="p">(</span><span class="s2">&quot;BoundComplex&quot;</span><span class="p">,</span> <span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>Optional grouped <code>observables</code> context for clearer organization and additional logging</li>
+<li>New overloaded <code>&gt;</code> operator for observable assignment without the need to explicitly initialize an <code>Observable</code> object.</li>
+<li>New overloaded <code>~</code> operator for observable assignment with an auto-generated name, and without the need to explicitly initialize an <code>Observable</code> object.</li>
+</ul>
+</div>
+<h2 id="expressions">Expressions</h2>
+<p>Expressions define algebraic relationships between parameters, observables, or other expressions. They’re useful for computing composite values like dose scaling factors, compartment-adjusted concentrations, or feedback-modulated rates.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">With <code>expressions</code> context:</label><label for="__tabbed_6_2">Context-free equivalent:</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">with</span> <span class="n">expressions</span><span class="p">():</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="n">K_d</span> <span class="o">=</span> <span class="n">k_r</span> <span class="o">/</span> <span class="n">k_f</span> <span class="c1"># dissociation constant</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">Expression</span><span class="p">(</span><span class="s2">&quot;K_d&quot;</span><span class="p">,</span> <span class="n">k_r</span> <span class="o">/</span> <span class="n">k_f</span><span class="p">)</span> <span class="c1"># dissociation constant</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>Contextual grouping with automatic introspection for expression creation and naming (when using <code>expressions</code> context).</li>
+</ul>
+</div>
+<h2 id="compartments">Compartments</h2>
+<p><code>Compartment</code>s define spatial contexts for species and reactions, representing physical volumes or surfaces such as plasma, tissue, or organelles.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">With contexts</label><label for="__tabbed_7_2">Context-free equivalent:</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">with</span> <span class="n">parameters</span><span class="p">():</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    <span class="n">V_C</span> <span class="o">=</span> <span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">)</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">V_P</span> <span class="o">=</span> <span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;mL&quot;</span><span class="p">)</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="k">with</span> <span class="n">compartments</span><span class="p">():</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">CENTRAL</span> <span class="o">=</span> <span class="n">V_C</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="n">PERIPHERAL</span> <span class="o">=</span> <span class="n">V_P</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;V_C&quot;</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;L&quot;</span><span class="p">)</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="n">Parameter</span><span class="p">(</span><span class="s2">&quot;V_P&quot;</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;mL&quot;</span><span class="p">)</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="n">Compartment</span><span class="p">(</span><span class="s2">&quot;CENTRAL&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">V_C</span><span class="p">)</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="n">Compartment</span><span class="p">(</span><span class="s2">&quot;PERIPHERAL&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">V_P</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>Contextual grouping with automatic introspection for compartment creation and naming (when using <code>compartments</code> context).</li>
+</ul>
+</div>
+<h2 id="macros">Macros</h2>
+<p>Macros in QSPy provide high-level, reusable templates for common biochemical processes such as binding, catalysis, synthesis, degradation, and more. They encapsulate complex rule patterns into a single, expressive statement, improving both readability and maintainability of your model code.</p>
+<h3 id="background-pysb-macros">Background: PySB Macros</h3>
+<p><a href="https://pysb.readthedocs.io/en/stable/tutorial.html#using-provided-macros">PySB macros</a> are functions that generate sets of rules and components for common biochemical motifs (e.g., reversible binding, catalysis, synthesis, degradation). They are a foundational feature of PySB, enabling concise and readable model code for complex biological processes.</p>
+<p>QSPy builds on this foundation by:</p>
+<ul>
+<li><strong>Incorporating all core PySB macros</strong> (<code>pysb.macros</code>) as <code>qspy.macros.core</code> (these include functions like <code>bind</code>, <code>equilibrate</code>, <code>catalyze</code>, etc.)</li>
+<li><strong>Including the PK/PD macros</strong> from <a href="https://blakeaw.github.io/pysb-pkpd/macros/"><code>pysb-pkpd</code></a> (<code>pysb.pkpd.macros</code>) as <code>qspy.macros.pkpd</code> (these include PK processes such as <code>distribute</code> and <code>eliminate</code>, PD functions like <code>emax</code>, and <code>sigmoidal_emax</code>, and dosing functions like <code>dose_bolus</code>)</li>
+<li><strong>Adding native support for units</strong> to both sets of macros, so all rate and concentration parameters can be specified with units and are automatically converted and checked</li>
+</ul>
+<p>This means you can use all standard PySB macro patterns in QSPy, but with enhanced unit handling and integration with QSPy’s context and logging system.</p>
+<h3 id="qspy-macro-contexts">QSPy Macro Contexts</h3>
+<p>You can use macros directly or within the <code>macros</code> context for grouped, introspective macro registration. When using the <code>macros</code> context, all macro-generated components are automatically logged to the QSPy logs for auditability and reproducibility.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">With <code>macros</code> context:</label><label for="__tabbed_8_2">Context-free equivalent:</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">with</span> <span class="n">macros</span><span class="p">():</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    <span class="n">bind</span><span class="p">(</span><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">kf_bind</span><span class="p">,</span> <span class="n">kr_bind</span><span class="p">])</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="n">degrade</span><span class="p">(</span><span class="n">Protein</span><span class="p">(),</span> <span class="n">k_deg</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">bind</span><span class="p">(</span><span class="n">Ligand</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">Receptor</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">kf_bind</span><span class="p">,</span> <span class="n">kr_bind</span><span class="p">])</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="n">degrade</span><span class="p">(</span><span class="n">Protein</span><span class="p">(),</span> <span class="n">k_deg</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">QSPy enhancements</p>
+<ul>
+<li>All macros are updated to use unit-aware model components.</li>
+<li>Contextual grouping with automatic introspection and logging when using the <code>macros</code> context.</li>
+<li>Full access to both core PySB macros and PK/PD macros from <code>pysb-pkpd</code>.</li>
+</ul>
+</div>
+<p>Macros can greatly simplify the specification of complex reaction patterns, especially when used in combination with QSPy’s context system.</p>
+<p>For more details on available macros, see the <a href="https://pysb.readthedocs.io/en/stable/tutorial.html#using-provided-macros">PySB macro documentation</a> and the <a href="https://blakeaw.github.io/pysb-pkpd/macros/">pysb-pkpd macro documentation</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

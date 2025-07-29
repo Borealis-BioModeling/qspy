@@ -1,0 +1,1463 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../model-diagram-generator/">
+      
+      
+        <link rel="next" href="../outputs-logs/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Model Summary Generator - QSPy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#model-summary-generator-in-qspy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="QSPy" class="md-header__button md-logo" aria-label="QSPy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            QSPy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Model Summary Generator
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="QSPy" class="md-nav__button md-logo" aria-label="QSPy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    QSPy
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Guide
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Components
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Specification
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functional-tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functional Tags
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-checker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Checker
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metadata-tracking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadata Tracking
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-diagram-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Diagram Generator
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Model Summary Generator
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Model Summary Generator
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-modelmarkdown_summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Model.markdown_summary?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-output-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Output Path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#including-a-model-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Including a Model Diagram
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-model-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use Model Summaries?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../outputs-logs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Outputs & Logs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Experimental Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How-To Guides
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            About
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about-qspy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About QSPy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../citing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Citing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Borealis-BioModeling/qspy" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Source Code
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Community
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Community
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Supporting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://matrix.to/#/#qspy:gitter.im" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QSPy Gitter
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/Borealis-BioModeling/qspy/discussions" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    QSPy Discussions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Resources
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qsp-modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    What is QSP Modeling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../related-software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Related Software
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://pysb.org/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PySB Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://pysb.readthedocs.io/en/stable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PySB Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/pysb/pysb" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    PySB GitHub
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contact-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contact/Support
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-modelmarkdown_summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Model.markdown_summary?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-output-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Output Path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#including-a-model-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      Including a Model Diagram
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-use-model-summaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Use Model Summaries?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      See Also
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="model-summary-generator-in-qspy">Model Summary Generator in QSPy</h1>
+<p>QSPy provides a convenient method for generating human-readable summaries of your model using the <code>Model.markdown_summary</code> function. This feature helps you document, review, and share the structure and key properties of your quantitative systems pharmacology (QSP) models.</p>
+<hr />
+<h2 id="what-is-modelmarkdown_summary">What is <code>Model.markdown_summary</code>?</h2>
+<p>The <code>markdown_summary</code> method is available on QSPy <code>Model</code> objects. It generates a Markdown summary file that includes:</p>
+<ul>
+<li>Model metadata (name, version, author, timestamp, hash)</li>
+<li>Monomer definitions (including sites, states, and functional tags)</li>
+<li>Parameters and their units</li>
+<li>Initial conditions</li>
+<li>Rules</li>
+<li>Observables</li>
+<li>(Optionally) a model diagram if the <code>ModelMermaidDiagrammer</code> object is included in the model definition.</li>
+</ul>
+<p>This summary is useful for documentation, collaboration, and reproducibility.</p>
+<hr />
+<h2 id="usage">Usage</h2>
+<h3 id="basic-example">Basic Example</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">qspy.core</span> <span class="kn">import</span> <span class="n">Model</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Build your model here...</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span><span class="o">.</span><span class="n">with_units</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># ... define monomers, parameters, rules, etc.</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Generate a summary file (default location: SUMMARY_DIR)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">model</span><span class="o">.</span><span class="n">markdown_summary</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="custom-output-path">Custom Output Path</h3>
+<p>You can specify a custom output path for the summary file:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">model</span><span class="o">.</span><span class="n">markdown_summary</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;my_model_summary.md&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="including-a-model-diagram">Including a Model Diagram</h3>
+<p>If you include an instance of <code>ModelMermaidDiagrammer</code> in the model definition then  the corresponding diagram will be included in the summary:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">model</span><span class="o">.</span><span class="n">markdown_summary</span><span class="p">(</span><span class="n">include_diagram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="example-output">Example Output</h2>
+<p>A generated summary file (Markdown) will look like:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gh"># QSPy Model Summary: `MyModel`</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gs">**Model name**</span>: <span class="sb">`MyModel`</span>  
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="gs">**Hash**</span>: <span class="sb">`abcd1234`</span>  
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="gs">**Version**</span>: 1.0.0  
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="gs">**Author**</span>: Alice  
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="gs">**Executed by**</span>: alice  
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="gs">**Timestamp**</span>: 2025-07-02T12:34:56
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="gu">## 🖼️ Model Diagram</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>&lt;!-- (Diagram would appear here if generated) --&gt;
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="gu">## Core Units</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>| Quantity      | Unit |
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>|-------------- |------|
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>| Concentration | nM   |
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>| Time          | h    |
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>| Volume        | L    |
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="gu">## Model Component Counts</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>| Component Type      | Count |
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>|---------------------|-------|
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>| Monomers            | 2     |
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>| Parameters          | 2     |
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>| Expressions         | 0     |
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>| Compartments        | 0     |
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>| Rules               | 1     |
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>| Initial Conditions  | 2     |
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>| Observables         | 2     |
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="gu">## Compartments</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>| Name  | Size |
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>|-------|------|
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>| <span class="ge">_None_</span> | <span class="ge">_N/A_</span> |
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a><span class="gu">## Monomers</span>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>| Name | Sites   | States                      | Functional Tag      |
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>|------|---------|-----------------------------|---------------------|
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>| A    | [&#39;b&#39;]   | {&#39;b&#39;: [&#39;u&#39;, &#39;p&#39;]}           | protein::ligand     |
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>| B    | []      | {}                          | protein::receptor   |
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a><span class="gu">## Parameters</span>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>| Name | Value | Units |
+</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>|------|-------|-------|
+</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>| k1   | 1.0   | 1/min |
+</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>| k2   | 0.5   | 1/min |
+</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>
+</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a><span class="gu">## Expressions</span>
+</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>| Name | Expression |
+</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>|------|------------|
+</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>| <span class="ge">_None_</span> | <span class="ge">_N/A_</span>    |
+</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>
+</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a><span class="gu">## Initial Conditions</span>
+</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>| Species   | Value | Units |
+</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>|-----------|-------|-------|
+</span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>| A(b=None) | 100   | nM    |
+</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>| B()       | 200   | nM    |
+</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a>
+</span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a><span class="gu">## Rules</span>
+</span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a>| Name | Rule Expression                        | k<span class="ge">_f | k_</span>r  | reversible |
+</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a>|------|----------------------------------------|-----|------|------------|
+</span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a>| bind | <span class="sb">`A(b=None) + B() &gt;&gt; A(b=1) % B()`</span>      | k1  | None | False      |
+</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a>
+</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a><span class="gu">## Observables</span>
+</span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a>| Name     | Reaction Pattern |
+</span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a>|----------|------------------|
+</span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a>| A_total  | <span class="sb">`A()`</span>            |
+</span><span id="__span-3-69"><a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a>| B_total  | <span class="sb">`B()`</span>            |
+</span></code></pre></div>
+<h2 id="why-use-model-summaries">Why Use Model Summaries?</h2>
+<ul>
+<li><strong>Documentation</strong>: Quickly generate a comprehensive overview of your model for reports or publications.</li>
+<li><strong>Collaboration</strong>: Share model structure and assumptions with colleagues.</li>
+<li><strong>Reproducibility</strong>: Archive model state and metadata alongside simulation results.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../metadata-tracking/">Model Metadata Tracking</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
