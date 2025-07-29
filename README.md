@@ -12,6 +12,9 @@ QSPy ('Cue Ess Pie') is a Python-based framework for the programmatic constructi
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 ![Static Badge](https://img.shields.io/badge/coverage-56%25-green)
 [![CI](https://github.com/Borealis-BioModeling/qspy/actions/workflows/ruff.yml/badge.svg)](https://github.com/Borealis-BioModeling/qspy/actions/workflows/ruff.yml)
+[![Static Badge](https://img.shields.io/badge/documentation-borealis--biomodeling.github.io/qspy/-blue?link=https://borealis-biomodeling.github.io/qspy/)](https://borealis-biomodeling.github.io/qspy/)
+
+
 
   :pill: :computer:
 
@@ -100,7 +103,7 @@ See: [CHANGELOG](CHANGELOG.md)
 
 Full documentation is available at:
 
-[Placeholder](https://blakeaw.github.io/qspy/) 
+[https://borealis-biomodeling.github.io/qspy/](https://borealis-biomodeling.github.io/qspy/) 
 
 Built With:
 
