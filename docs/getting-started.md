@@ -12,6 +12,8 @@
   * [Microbench](https://github.com/alubbock/microbench)
   * [PyViPR](https://pyvipr.readthedocs.io/en/latest/)
   * [MerGram](https://github.com/blakeaw/mergram)
+  * [toml](https://github.com/uiri/toml)
+  * [seaborn](https://seaborn.pydata.org/)
 
 ### Installation steps
 

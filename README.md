@@ -60,6 +60,8 @@ QSPy ('Cue Ess Pie') is a Python-based framework for the programmatic constructi
   * [Microbench](https://github.com/alubbock/microbench)
   * [PyViPR](https://pyvipr.readthedocs.io/en/latest/)
   * [MerGram](https://github.com/blakeaw/mergram)
+  * [toml](https://github.com/uiri/toml)
+  * [seaborn](https://seaborn.pydata.org/)
 
 ## Installation
   1. Install **PySB** using [conda](https://docs.conda.io/en/latest/) or [mamba](https://github.com/mamba-org/mamba):

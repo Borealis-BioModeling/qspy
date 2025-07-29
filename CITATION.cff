@@ -17,7 +17,7 @@ repository-code: 'https://github.com/Borealis-BioModeling/qspy'
 abstract: >-
   QSPy: Quantitative Systems Pharmacology Modeling in Python 
 license: BSD-2-Clause
-version: 0.1.0
+version: 0.1.1
 date-released: '2025-07-29'
 references:
   - authors:

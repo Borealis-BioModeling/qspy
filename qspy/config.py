@@ -37,7 +37,7 @@ METADATA_DIR = OUTPUT_DIR / "metadata"
 SUMMARY_DIR = OUTPUT_DIR / "model_summary.md"
 
 # Versioning
-QSPY_VERSION = "0.1.0"
+QSPY_VERSION = "0.1.1"
 
 def set_output_dir(path: str | Path):
     """

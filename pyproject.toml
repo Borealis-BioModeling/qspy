@@ -4,14 +4,17 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cueesspie" # Name of the package on PyPI
-version = "0.1.0"
+version = "0.1.1"
 requires-python = ">= 3.11.9"
 dependencies = [
   "pysb>=1.15.0",
   "pysb-pkpd>=0.5.3",
   "pysb-units>=0.4.0",
   "microbench>=0.9.1",
-  "mergram>=0.3.0"
+  "mergram>=0.3.0",
+  "toml>=0.10.2",
+  "pyvipr>=1.0.7",
+  "seaborn>=0.13.2",
 ]
 authors = [
   {name = "Blake A. Wilson", email = "blakeaw1102@gmail.com"},
