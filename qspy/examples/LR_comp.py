@@ -49,7 +49,7 @@ with initials():
     R(l=None) ** PM << R0  # Initial receptor concentration in plasma membrane
 
 with observables():
-    R(l=None) ** EC > "FreeR"
+    R(l=None) ** PM > "FreeR"
     R(l=ANY) ** PM > "Bound"
     L(r=ANY) ** EC > "test"  # Testing if any bound ligands in EC
 
