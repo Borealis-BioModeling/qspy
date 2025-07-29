@@ -11,12 +11,13 @@ icon: material/home
 
 ------
 
-[ Getting Started ](./getting-started.md){ .md-button .md-button--primary } [How-To Guides](./how-to-guides.md){ .md-button .md-button--primary } [About QSPy](./about-qspy.md){ .md-button .md-button--primary } 
+[ Getting Started ](./getting-started.md){ .md-button .md-button--primary } [How-To Guides](./how-to-guides.md){ .md-button .md-button--primary } [Build Model](./model-specification.md){ .md-button .md-button--primary } [Share Model](https://github.com/Borealis-BioModeling/qspy/discussions/2){ .md-button .md-button--primary }
 
-[API Documentation](./reference.md){ .md-button .md-button--primary } [  Need Help?  ](./contact-support.md){ .md-button .md-button--primary } [Contributing](./contributing.md){ .md-button .md-button--primary }
+[API Documentation](./reference.md){ .md-button .md-button--primary } [  Need Help?  ](./contact-support.md){ .md-button .md-button--primary } [About QSPy](./about-qspy.md){ .md-button .md-button--primary } [Contributing](./contributing.md){ .md-button .md-button--primary }
 
 ------
 
+------
  
 
 ![QSPy logo](./assets/navig-8_hey-listen.svg){ width="150" }

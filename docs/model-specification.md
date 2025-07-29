@@ -82,7 +82,7 @@ with observables():
     drug(b=1)**PERIPHERAL % receptor(b=1)**PERIPHERAL > "OccupiedReceptor"
 ```
 
-## 10) Assign model metadata and tracker
+## 10) Assign model metadata and tracker (optional)
 
 ```python
 __version__ = 0.1.0
@@ -90,17 +90,32 @@ __author__ = "Jane Doe"
 ModelMetadataTracker(__version__, author=__author__)
 ```
 
-## 11) Initialize model checker
+!!! info
+    Learn more about the [metadata tracker](./metadata-tracking.md)
+
+## 11) Initialize model checker (optional)
 
 ```python
 ModelChecker()
 ```
 
+!!! info
+    Learn more about the [model checker](./model-checker.md)
+
+## 12) Include a mermaid diagram generator (optional)
+
+```python
+ModelMermaidDiagrammer()
+```
+
+!!! info
+    Learn more about the [diagram generator](./model-diagram-generator.md)
+
 ------
 
 ## Full example model
 
-!!! example
+!!! example "pkro_model.py"
 
     ```python
     from qspy import *
@@ -148,6 +163,6 @@ ModelChecker()
     __version__ = 0.1.0
     __author__ = "Jane Doe"
     ModelMetadataTracker(__version__, author=__author__)
-
+    ModelMermaidDiagrammer()
     ModelChecker()
     ```
