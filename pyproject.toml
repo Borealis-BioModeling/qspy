@@ -11,6 +11,7 @@ dependencies = [
   "pysb-pkpd>=0.5.3",
   "pysb-units>=0.4.0",
   "microbench>=0.9.1",
+  "mergram>=0.3.0"
 ]
 authors = [
   {name = "Blake A. Wilson", email = "blakeaw1102@gmail.com"},
@@ -76,4 +77,4 @@ find = {}  # Scan the project directory with the default parameters
 
 # Set the dynamic version
 [tool.setuptools.dynamic]
-version = {attr = "qspy.__version__"}
+version = {attr = "qspy.config.QSPY_VERSION"}
